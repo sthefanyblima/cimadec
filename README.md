@@ -1,85 +1,358 @@
-CIMADEC - Plataforma Independente de Gestão de Crises Urbanas
-Visão Geral
+# CIMADEC – Plataforma de Gestão de Crises Urbanas
 
-O CIMADEC (Centro Integrado de Monitoramento e Análise de Desastres e Crises) é um protótipo funcional de front-end desenvolvido para simular a gestão e o monitoramento de ocorrências urbanas, com foco geográfico na cidade de Maceió, Alagoas.
+![Status](https://img.shields.io/badge/status-prot%C3%B3tipo-blue)
+![Frontend](https://img.shields.io/badge/frontend-HTML%2FCSS%2FJS-orange)
+![License](https://img.shields.io/badge/license-Acad%C3%AAmico-green)
 
-O sistema foi projetado para atuar como uma ponte entre a população e os órgãos de controle, facilitando o reporte de alagamentos, deslizamentos de encostas, acúmulo irregular de resíduos e danos à infraestrutura, além de prover um painel analítico para a triagem e tomada de decisão por parte de operadores logísticos e de defesa civil.
-Arquitetura e Tecnologias
+## 📌 Sobre o Projeto
 
-O projeto foi construído sob uma arquitetura estática (Client-Side) visando alta compatibilidade, ausência de dependências complexas de build e facilidade de deploy em ambientes como GitHub Pages.
+O **CIMADEC (Centro Integrado de Monitoramento e Análise de Desastres e Crises)** é uma plataforma web desenvolvida para auxiliar o monitoramento e o gerenciamento de ocorrências urbanas na cidade de **Maceió – AL**.
 
-    Linguagem Base: HTML5 Semântico e JavaScript (Vanilla/ES6+).
+A proposta do sistema é funcionar como uma ponte entre a população e os órgãos responsáveis pela gestão urbana, permitindo o registro e acompanhamento de situações de risco que afetam diretamente a população.
 
-    Estilização: Tailwind CSS (via CDN) para construção de uma interface utilitária, responsiva e alinhada a padrões de design de software governamental (GovTech).
+Entre as ocorrências monitoradas estão:
 
-    Mapeamento e Georreferenciamento: Leaflet.js integrado aos tiles do CartoDB (Voyager), escolhido por oferecer estabilidade em ambientes de desenvolvimento local (file:///) sem bloqueios de CORS ou exigência de cabeçalhos de referência estritos.
+- 🌊 Enchentes
+- ⛰️ Deslizamentos de encostas
+- 🗑️ Acúmulo irregular de lixo
+- 🌳 Queda de árvores
+- 🚧 Problemas de infraestrutura urbana
 
-    Visualização de Dados: Chart.js para renderização do painel de métricas e distribuição espacial no acesso do operador.
+Além do registro das ocorrências, a plataforma disponibiliza um painel de monitoramento para visualização e análise dos dados coletados.
 
-    Ícones: Phosphor Icons.
+---
 
-    Armazenamento de Estado: API localStorage do navegador para persistência de dados simulados (mock) durante a sessão e entre recarregamentos.
+# 🎯 Objetivos
 
-Estrutura de Arquivos
-Plaintext
+## Objetivo Geral
 
+Desenvolver um protótipo funcional de uma plataforma web para monitoramento de crises urbanas, permitindo o registro, visualização e acompanhamento de ocorrências georreferenciadas.
+
+## Objetivos Específicos
+
+- Facilitar o reporte de problemas urbanos pela população;
+- Disponibilizar informações geográficas das ocorrências;
+- Permitir a visualização de indicadores em tempo real (simulados);
+- Aplicar conceitos de UX/UI e responsividade;
+- Demonstrar o uso de mapas interativos em aplicações web.
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+| Tecnologia | Finalidade |
+|------------|------------|
+| HTML5 | Estrutura semântica da aplicação |
+| CSS3 | Estilização complementar |
+| Tailwind CSS | Layout responsivo e utilitário |
+| JavaScript ES6+ | Interatividade e lógica da aplicação |
+| Leaflet.js | Mapa interativo |
+| OpenStreetMap / CartoDB | Provedor dos mapas |
+| Chart.js | Visualização de dados |
+| Phosphor Icons | Ícones da interface |
+| localStorage | Persistência local dos dados |
+
+---
+
+# 🏗️ Arquitetura do Projeto
+
+O sistema segue uma arquitetura totalmente **Client-Side**, ou seja, toda a execução ocorre diretamente no navegador.
+
+### Características
+
+✅ Sem back-end
+
+✅ Sem banco de dados
+
+✅ Sem autenticação real
+
+✅ Compatível com GitHub Pages
+
+✅ Persistência local utilizando localStorage
+
+✅ Sem necessidade de instalação de dependências
+
+---
+
+# 📁 Estrutura do Projeto
+
+```text
 /
-├── index.html        # Estrutura unificada da aplicação (Single Page Application simulada)
+├── index.html
 ├── css/
-│   └── style.css     # Regras de sobreposição de Z-index, customização de barras de rolagem e resets
+│   └── style.css
 ├── js/
-│   └── script.js     # Lógica de controle de estado, renderização de UI, geolocalização e gráficos
-└── README.md         # Documentação do projeto
+│   └── script.js
+├── README.md
+└── .gitignore
+```
 
-Perfis de Acesso e Funcionalidades
+---
 
-A plataforma foi dividida em dois fluxos de usuário distintos para garantir segurança e foco operacional.
-1. Acesso Cidadão (Público)
+# 👥 Perfis de Usuário
 
-Focado em usabilidade rápida e precisão na coleta de dados.
+A aplicação foi dividida em dois fluxos principais:
 
-    Wizard de Registro: Formulário segmentado em etapas (Stepper) para reduzir a carga cognitiva do usuário.
+## 👤 Cidadão
 
-    Geolocalização Inteligente: Utiliza a API navigator.geolocation nativa do HTML5. Possui uma trava de segurança no mock: caso a coordenada retornada pelo provedor de internet do usuário esteja fora do polígono geográfico de Maceió, o sistema faz um "snap" para a coordenada central da cidade para garantir a integridade da demonstração.
+Responsável pelo registro das ocorrências.
 
-    Histórico de Protocolos: Listagem de ocorrências submetidas, exibindo categoria, data, coordenadas e status atualizado.
+### Funcionalidades
 
-2. Acesso Operador (Gestão e Defesa Civil)
+- Cadastro de ocorrências;
+- Registro georreferenciado;
+- Upload simulado de evidências;
+- Histórico de protocolos;
+- Consulta do status da ocorrência.
 
-Focado em análise de dados em massa e triagem de resposta rápida.
+### Dados registrados
 
-    Painel Analítico (Dashboard): Exibição de KPIs críticos (Total de registros, Aguardando triagem, Riscos críticos).
+- Categoria;
+- Descrição;
+- Endereço;
+- Coordenadas geográficas;
+- Data do registro.
 
-    Distribuição Espacial: Gráfico de barras indicando o volume de ocorrências por classificação e um Heatmap/Mapa de Pinos renderizando todas as ocorrências ativas na malha urbana.
+---
 
-    Fila de Triagem: Tabela de gerenciamento em tempo real permitindo a atualização do status das ocorrências (Novo, Em Análise, Resolvido).
+## 🏢 Operador / Defesa Civil
 
-Decisões de Design (UI/UX)
+Responsável pelo monitoramento e análise das ocorrências registradas.
 
-Para este projeto, optou-se por abandonar o conceito de interfaces "Soft UI" (com cores pastéis, sombras exageradas e cantos excessivamente arredondados), adotando o padrão Flat Design Corporativo.
+### Funcionalidades
 
-    Paleta de Cores: Focada em tons neutros (escala de cinzas e branco) como fundo, utilizando o Azul Marinho e o Vermelho Escuro (referência indireta às cores da bandeira de Maceió) apenas para ações primárias e indicadores de status críticos.
+- Dashboard analítico;
+- Visualização de indicadores;
+- Mapa de ocorrências;
+- Triagem de chamados;
+- Atualização de status.
 
-    Indicadores Visuais: Uso de "Status Dots" (pontos sólidos de cor) combinados com tipografia monocromática para representar o andamento dos processos, evitando a poluição visual comum em painéis de listagem.
+### Indicadores exibidos
 
-Instruções de Execução
+- Total de ocorrências;
+- Ocorrências em análise;
+- Casos resolvidos;
+- Casos críticos;
+- Distribuição por categoria.
 
-Por ser uma aplicação inteiramente executada no lado do cliente (Client-Side), não há necessidade de instalação de pacotes (ex: npm install) ou inicialização de servidores complexos.
+---
 
-    Clone este repositório para sua máquina local.
+# 🌎 Georreferenciamento
 
-    Navegue até o diretório raiz do projeto.
+A plataforma utiliza:
 
-    Abra o arquivo index.html em qualquer navegador web moderno.
+- **Leaflet.js**
+- **OpenStreetMap**
+- **CartoDB Voyager**
 
-    (Recomendado): Para uma experiência de desenvolvimento ideal e para evitar restrições estritas de segurança de arquivos locais de alguns navegadores, utilize extensões como o Live Server (VS Code) para rodar o projeto sob um protocolo http://localhost.
+para exibição dos mapas.
 
-Limitações Conhecidas e Escopo Futuro (Roadmap)
+### Recursos implementados
 
-Este sistema reflete a Fase 1 (Front-end e Protótipo) de um escopo maior de gestão de crises urbanas. As seguintes limitações estão mapeadas para resolução nas próximas fases:
+- Visualização de Maceió em mapa interativo;
+- Captura de coordenadas através de clique no mapa;
+- Exibição de marcadores;
+- Associação da ocorrência à localização geográfica.
 
-    Volatilidade dos Dados: Atualmente restritos ao localStorage. O planejamento futuro prevê a migração para um banco de dados relacional (PostgreSQL com extensão PostGIS) via API RESTful (Node.js ou Python).
+---
 
-    Upload de Evidências: A área de anexo fotográfico é apenas visual. A implementação real exigirá integração com serviços de armazenamento em nuvem (ex: AWS S3).
+# 🎨 Decisões de Design (UI/UX)
 
-    Integração de APIs de Clima: O "Alerta Amarelo" de chuvas na interface do operador é estático. A versão de produção deverá consumir endpoints públicos (como INMET ou CEMADEN) para atualizar o cabeçalho automaticamente com base na previsão meteorológica local.
+## Interface
+
+Foi adotado o padrão **Flat Design Corporativo**, priorizando:
+
+- Legibilidade;
+- Simplicidade;
+- Clareza visual;
+- Organização das informações.
+
+## Paleta de Cores
+
+A identidade visual utiliza:
+
+- Tons neutros para fundo;
+- Azul institucional para ações principais;
+- Vermelho para alertas críticos;
+- Verde para indicadores positivos.
+
+## Responsividade
+
+O sistema foi projetado para funcionar em:
+
+| Dispositivo | Resolução |
+|------------|------------|
+| Mobile | até 640px |
+| Tablet | 768px ou superior |
+| Desktop | 1024px ou superior |
+
+---
+
+# ⚙️ Funcionalidades Implementadas
+
+### Landing Page
+
+- Apresentação do projeto;
+- Introdução ao problema urbano;
+- Botões de navegação rápida.
+
+### Dashboard
+
+- Painel de monitoramento;
+- Exibição de estatísticas;
+- Filtro de ocorrências.
+
+### Formulário de Ocorrências
+
+- Validação dinâmica;
+- Campos obrigatórios;
+- Upload simulado;
+- Captura de coordenadas.
+
+### Mapa Interativo
+
+- Navegação livre;
+- Seleção de localização;
+- Marcadores dinâmicos.
+
+### Armazenamento Local
+
+Utilização do:
+
+```javascript
+localStorage
+```
+
+para manter os registros após recarregar a página.
+
+---
+
+# 🚀 Como Executar o Projeto
+
+## Método 1 — Abertura Direta
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/cimadec.git
+```
+
+2. Entre na pasta do projeto:
+
+```bash
+cd cimadec
+```
+
+3. Abra o arquivo:
+
+```text
+index.html
+```
+
+em qualquer navegador moderno.
+
+---
+
+## Método 2 — Live Server (Recomendado)
+
+Caso utilize o VS Code:
+
+1. Instale a extensão **Live Server**;
+2. Abra o projeto;
+3. Clique com o botão direito em:
+
+```text
+index.html
+```
+
+4. Selecione:
+
+```text
+Open with Live Server
+```
+
+---
+
+# 💾 Persistência dos Dados
+
+Os dados são armazenados localmente através da API:
+
+```javascript
+localStorage
+```
+
+Isso permite que as ocorrências continuem disponíveis mesmo após:
+
+- Atualização da página;
+- Fechamento do navegador;
+- Reinício da aplicação.
+
+---
+
+# ⚠️ Limitações Conhecidas
+
+Por se tratar de um protótipo acadêmico de front-end:
+
+- Não existe autenticação real;
+- Não há banco de dados;
+- Não existe API REST;
+- O upload de imagens é apenas simulado;
+- Não há integração com órgãos públicos;
+- Não existe envio real de notificações;
+- Os alertas climáticos são estáticos.
+
+---
+
+# 🔮 Trabalhos Futuros
+
+As próximas evoluções previstas incluem:
+
+### Infraestrutura
+
+- PostgreSQL + PostGIS;
+- API REST;
+- Hospedagem em nuvem.
+
+### Funcionalidades
+
+- Upload real de imagens;
+- Cadastro de usuários;
+- Sistema de autenticação;
+- Painel administrativo completo;
+- Notificações em tempo real.
+
+### Integrações
+
+- INMET;
+- CEMADEN;
+- OpenWeather;
+- APIs municipais.
+
+---
+
+# 📚 Referências
+
+- HTML Living Standard
+- Tailwind CSS Documentation
+- Leaflet Documentation
+- OpenStreetMap
+- Chart.js Documentation
+- W3C Web Accessibility Guidelines (WCAG)
+
+---
+
+# 👨‍💻 Autores
+
+Projeto desenvolvido para fins acadêmicos na disciplina de Desenvolvimento Web, com foco em monitoramento de crises urbanas e participação cidadã.
+
+---
+
+# 📄 Licença
+
+Este projeto possui finalidade exclusivamente acadêmica e educacional.
+
+Uso livre para estudos, demonstrações e apresentações universitárias.
+
+---
+
+**CIMADEC © 2026 – Centro Integrado de Monitoramento e Análise de Desastres e Crises**
