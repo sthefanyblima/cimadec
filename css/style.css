@@ -1,0 +1,25 @@
+/* Z-Index Fix para Leaflet */
+.leaflet-container {
+    z-index: 10;
+}
+
+/* Scrollbar Sóbria e Minimalista */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Reset de Outline para manter aspecto profissional */
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
