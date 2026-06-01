@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIMADEC | Gestão de Crises Urbanas</title>
+    <title>CIMADEC | Plataforma de Gestão de Crises Urbanas</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,92 +11,141 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: {
-                            blue: '#0B3B60', /* Azul sóbrio (Bandeira/Mar) */
-                            red: '#9B1B30',  /* Vermelho sóbrio (Bandeira) */
-                            dark: '#111827',
-                            gray: '#F3F4F6'
-                        }
-                    }
+                    colors: { brand: { blue: '#0B3B60', red: '#9B1B30', dark: '#111827', gray: '#F3F4F6', light: '#E5E7EB' } }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-brand-gray text-brand-dark font-sans h-screen overflow-hidden flex flex-col">
 
     <div id="landing-view" class="fixed inset-0 z-50 bg-white overflow-y-auto flex flex-col">
-        <header class="border-b border-gray-200 bg-white sticky top-0 z-40">
+        <header class="border-b border-gray-200 bg-white sticky top-0 z-40 shadow-sm">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-4 h-4 bg-brand-red rounded-sm"></div>
                     <div class="w-4 h-4 bg-brand-blue rounded-sm -ml-2"></div>
                     <h1 class="text-xl font-bold tracking-tight text-brand-dark ml-2">CIMADEC</h1>
                 </div>
-                <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-                    <a href="#sobre" class="hover:text-brand-blue transition-colors">Sobre o Sistema</a>
-                    <a href="#acesso" class="hover:text-brand-blue transition-colors">Acessar Plataforma</a>
+                <nav class="hidden md:flex gap-8 text-sm font-semibold text-gray-600">
+                    <a href="#inicio" class="hover:text-brand-blue transition-colors">Início</a>
+                    <a href="#sobre" class="hover:text-brand-blue transition-colors">Como Funciona</a>
+                    <a href="#funcionalidades" class="hover:text-brand-blue transition-colors">Funcionalidades</a>
                 </nav>
+                <a href="#acesso" class="bg-brand-dark text-white px-5 py-2 rounded text-sm font-semibold hover:bg-gray-800 transition-colors">
+                    Acessar Plataforma
+                </a>
             </div>
         </header>
 
         <main class="flex-grow">
-            <section class="py-20 bg-gray-50 border-b border-gray-200">
-                <div class="container mx-auto px-6 max-w-4xl text-center">
-                    <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-6 leading-tight">Monitoramento Independente de Crises Urbanas em Maceió</h2>
-                    <p class="text-lg text-gray-600 mb-10">
-                        Uma plataforma colaborativa projetada para registrar, triar e analisar ocorrências de enchentes, deslizamentos e infraestrutura, conectando cidadãos e operadores logísticos de forma eficiente.
+            <section id="inicio" class="bg-brand-dark text-white py-24 lg:py-32 border-b border-brand-blue/20">
+                <div class="container mx-auto px-6 max-w-5xl text-center">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold uppercase tracking-widest text-gray-300 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span> Sistema Operacional
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">Gestão Inteligente de<br><span class="text-brand-blue text-blue-400">Crises Urbanas</span> em Maceió</h2>
+                    <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+                        Uma plataforma independente projetada para centralizar o monitoramento geoespacial. Conectamos o reporte cidadão à resposta logística, mitigando os impactos de enchentes, deslizamentos e falhas de infraestrutura.
                     </p>
-                    <a href="#acesso" class="inline-flex items-center gap-2 bg-brand-dark text-white px-8 py-3 rounded text-sm font-semibold hover:bg-gray-800 transition-colors">
-                        Iniciar Sessão <i class="ph ph-arrow-down"></i>
-                    </a>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#acesso" class="bg-brand-blue text-white px-8 py-3.5 rounded text-sm font-bold hover:bg-blue-800 transition-colors">Iniciar Sessão</a>
+                        <a href="#sobre" class="bg-transparent border border-gray-500 text-gray-300 px-8 py-3.5 rounded text-sm font-bold hover:bg-white/5 transition-colors">Conhecer o Sistema</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sobre" class="py-20 bg-white">
+                <div class="container mx-auto px-6 max-w-6xl">
+                    <div class="flex flex-col lg:flex-row gap-16 items-center">
+                        <div class="w-full lg:w-1/2">
+                            <h3 class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2">O Problema & A Solução</h3>
+                            <h4 class="text-3xl font-bold text-brand-dark mb-6 leading-tight">Mapeamento dinâmico para respostas rápidas.</h4>
+                            <p class="text-gray-600 mb-6 leading-relaxed">
+                                Maceió possui um histórico documentado de vulnerabilidades climáticas e geológicas. O <strong>CIMADEC</strong> foi concebido para eliminar a fragmentação de informações.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed mb-8">
+                                Ao invés de formulários estáticos, oferecemos um ambiente onde ocorrências são georreferenciadas no ato do reporte. A triagem é feita através de mapas de calor e painéis de volumetria, permitindo que operadores direcionem equipes de campo com precisão cirúrgica.
+                            </p>
+                            <div class="flex items-center gap-4 border-l-4 border-brand-red pl-4 py-2">
+                                <i class="ph ph-shield-warning text-3xl text-brand-red"></i>
+                                <span class="text-sm font-semibold text-gray-800">Foco em transparência técnica e rastreabilidade logística.</span>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-1/2 bg-gray-100 rounded-lg h-80 border border-gray-200 flex items-center justify-center relative overflow-hidden">
+                            <i class="ph ph-map-trifold text-9xl text-gray-300"></i>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-blue/10 to-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="funcionalidades" class="py-20 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-6 max-w-6xl">
+                    <div class="text-center mb-16">
+                        <h3 class="text-3xl font-bold text-brand-dark mb-4">Arquitetura de Funcionalidades</h3>
+                        <p class="text-gray-600 text-sm">Módulos integrados projetados para eficiência operacional e prevenção.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-brand-blue transition-colors">
+                            <i class="ph ph-crosshair text-4xl text-brand-blue mb-4"></i>
+                            <h4 class="font-bold text-brand-dark mb-2">Reverse Geocoding</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Captura de latitude e longitude via satélite com conversão automática para logradouros oficiais em Maceió (API OSM).</p>
+                        </div>
+                        <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-brand-red transition-colors">
+                            <i class="ph ph-chart-line-up text-4xl text-brand-red mb-4"></i>
+                            <h4 class="font-bold text-brand-dark mb-2">Telemetria & IoT</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Integração com sensores de nível e pluviômetros. O sistema dispara alertas automáticos em caso de anomalias hídricas.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-gray-800 transition-colors">
+                            <i class="ph ph-kanban text-4xl text-gray-700 mb-4"></i>
+                            <h4 class="font-bold text-brand-dark mb-2">Fila de Triagem</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Controle de status (Pendente, Em Análise, Resolvido) centralizado. Rastreabilidade completa da ocorrência do início ao fim.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <section id="acesso" class="py-20 bg-white">
                 <div class="container mx-auto px-6 max-w-5xl">
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-4 border-l-4 border-brand-blue pl-4">Portal de Acesso</h3>
-                            <p class="text-gray-600 mb-8 text-sm leading-relaxed">
-                                O sistema possui ambientes isolados. Cidadãos podem registrar e acompanhar novas ocorrências via mapa. Operadores possuem acesso analítico para triagem, roteirização e análise de áreas de risco.
-                            </p>
-                        </div>
-                        <div class="flex flex-col gap-4">
-                            <button onclick="loginAs('cidadao')" class="text-left group flex items-start gap-4 p-6 border border-gray-300 rounded hover:border-brand-blue transition-colors bg-white">
-                                <div class="p-3 bg-gray-100 rounded group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                    <i class="ph ph-user text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-brand-dark mb-1">Acesso Cidadão</h4>
-                                    <p class="text-xs text-gray-500">Reporte problemas estruturais, enchentes ou acúmulo de lixo na sua região.</p>
-                                </div>
-                            </button>
-                            
-                            <button onclick="loginAs('operador')" class="text-left group flex items-start gap-4 p-6 border border-gray-300 rounded hover:border-brand-red transition-colors bg-white">
-                                <div class="p-3 bg-gray-100 rounded group-hover:bg-brand-red group-hover:text-white transition-colors">
-                                    <i class="ph ph-monitor text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-brand-dark mb-1">Acesso Operador / Gestão</h4>
-                                    <p class="text-xs text-gray-500">Painel de triagem, análise de mapas de calor e gestão de crise.</p>
-                                </div>
-                            </button>
-                        </div>
+                    <div class="text-center mb-12">
+                        <h3 class="text-3xl font-bold text-brand-dark mb-4">Portal de Acesso</h3>
+                        <p class="text-gray-600 text-sm">Selecione o perfil de operação adequado.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                        <button onclick="loginAs('cidadao')" class="text-left group flex flex-col items-center text-center gap-4 p-8 border border-gray-300 rounded hover:border-brand-blue hover:shadow-md bg-white transition-all">
+                            <div class="p-4 bg-gray-100 rounded-full group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                                <i class="ph ph-user text-3xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark mb-2">Acesso Cidadão</h4>
+                                <p class="text-xs text-gray-500">Radar de entorno automático, telemetria ambiental e reporte georreferenciado de incidentes locais.</p>
+                            </div>
+                        </button>
+                        
+                        <button onclick="loginAs('operador')" class="text-left group flex flex-col items-center text-center gap-4 p-8 border border-gray-300 rounded hover:border-brand-red hover:shadow-md bg-white transition-all">
+                            <div class="p-4 bg-gray-100 rounded-full group-hover:bg-brand-red group-hover:text-white transition-colors">
+                                <i class="ph ph-shield-check text-3xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark mb-2">Centro de Operações</h4>
+                                <p class="text-xs text-gray-500">Painel logístico de triagem, mapa de calor, integração de radar CEMADEN e gestão em massa.</p>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </section>
         </main>
-        <footer class="bg-brand-dark text-white text-center py-6 text-sm">
-            &copy; 2026 CIMADEC. Plataforma de Gestão Independente.
+        
+        <footer class="bg-brand-dark border-t border-gray-800 text-gray-500 text-center py-6 text-xs uppercase tracking-widest font-semibold">
+            &copy; 2026 CIMADEC | Plataforma Independente
         </footer>
     </div>
 
@@ -111,23 +160,7 @@
                 </div>
             </div>
             
-            <nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 px-3">
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 px-3 mt-4">Navegação</p>
-                
-                <button id="menu-reportar" class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors hidden">
-                    <i class="ph ph-map-pin-line text-lg"></i> Novo Registro
-                </button>
-                <button id="menu-meus-registros" class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors hidden">
-                    <i class="ph ph-files text-lg"></i> Meu Histórico
-                </button>
-
-                <button id="menu-painel-geral" class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors hidden">
-                    <i class="ph ph-chart-polar text-lg"></i> Visão Geral
-                </button>
-                <button id="menu-triagem" class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors hidden">
-                    <i class="ph ph-kanban text-lg"></i> Fila de Triagem
-                </button>
-            </nav>
+            <nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 px-3" id="main-nav"></nav>
 
             <div class="p-4 border-t border-gray-200">
                 <div class="flex items-center gap-3 mb-4">
@@ -143,44 +176,107 @@
             </div>
         </aside>
 
-        <main class="flex-1 flex flex-col min-w-0 bg-gray-50">
+        <main class="flex-1 flex flex-col min-w-0 bg-gray-50 relative">
+            
+            <div id="global-alert-banner" class="hidden absolute top-0 left-0 w-full z-[60] bg-brand-red text-white px-8 py-3 shadow-lg flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="ph-fill ph-warning-octagon text-2xl animate-pulse"></i>
+                    <div>
+                        <p class="text-sm font-bold tracking-wide">ALERTA AUTOMATIZADO DE RISCO</p>
+                        <p id="global-alert-msg" class="text-xs text-red-200">Sensores detectaram anomalia crítica na sua região.</p>
+                    </div>
+                </div>
+                <button onclick="this.parentElement.classList.add('hidden')" class="text-white hover:text-red-200"><i class="ph ph-x"></i></button>
+            </div>
+
             <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
                 <h2 id="page-title" class="text-lg font-bold text-brand-dark">Dashboard</h2>
-                <div class="text-xs font-mono text-gray-500 border border-gray-300 px-3 py-1 rounded">
-                    Status: <span class="text-green-600 font-bold">● Sistemas Operantes</span>
+                <div class="text-xs font-mono text-gray-500 border border-gray-300 px-3 py-1 rounded flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-600 block animate-pulse"></span> Sensores Ativos
                 </div>
             </header>
 
-            <div class="flex-1 overflow-auto p-8">
+            <div class="flex-1 overflow-auto p-8 relative">
                 
-                <div id="view-reportar" class="hidden max-w-2xl mx-auto">
-                    <div class="bg-white border border-gray-300 rounded shadow-sm">
-                        <div class="p-6 border-b border-gray-200">
-                            <h3 class="font-bold text-brand-dark mb-1">Registro de Incidente</h3>
-                            <p class="text-xs text-gray-500">Siga as etapas para concluir a submissão.</p>
+                <div id="view-c-dashboard" class="hidden flex-col gap-6">
+                    <div id="c-entorno-banner" class="bg-brand-blue text-white p-5 rounded shadow-sm flex items-center gap-4 border border-blue-800">
+                        <div class="p-3 bg-blue-800 rounded-full"><i class="ph ph-radar text-2xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-sm">Análise do seu entorno</h4>
+                            <p class="text-xs text-blue-200 mt-1" id="c-entorno-msg">Analisando coordenadas atuais em relação à base de dados...</p>
                         </div>
-                        
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[500px]">
+                        <div class="lg:col-span-2 bg-white border border-gray-200 rounded shadow-sm flex flex-col h-full">
+                            <div class="p-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center shrink-0">
+                                <h3 class="font-bold text-sm text-brand-dark">Radar de Ocorrências Ativas</h3>
+                            </div>
+                            <div id="c-main-map" class="w-full flex-1 z-10"></div>
+                        </div>
+
+                        <div class="lg:col-span-1 flex flex-col gap-6 h-full">
+                            <div class="bg-brand-dark border border-gray-800 p-4 rounded shadow-sm text-white shrink-0">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-xs font-bold tracking-wide uppercase text-gray-400">Dados Ambientais Locais</h4>
+                                </div>
+                                <div class="flex flex-col gap-4">
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-300">Riacho Salgadinho</span>
+                                            <span id="c-iot-val-1" class="font-mono font-bold text-blue-400">45%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-700 rounded-full h-1.5">
+                                            <div id="c-iot-bar-1" class="bg-blue-400 h-1.5 rounded-full transition-all duration-1000" style="width: 45%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-300">Chuvas - Pluviômetro</span>
+                                            <span id="c-iot-val-2" class="font-mono font-bold text-green-400">12mm</span>
+                                        </div>
+                                        <div class="w-full bg-gray-700 rounded-full h-1.5">
+                                            <div id="c-iot-bar-2" class="bg-green-400 h-1.5 rounded-full transition-all duration-1000" style="width: 12%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col bg-white border border-gray-200 rounded shadow-sm flex-1 overflow-hidden">
+                                <div class="p-3 border-b border-gray-200 bg-gray-50 shrink-0">
+                                    <h3 class="font-bold text-xs text-brand-dark uppercase tracking-widest">Acontecendo Agora</h3>
+                                </div>
+                                <div class="flex-1 overflow-y-auto p-3 flex flex-col gap-3" id="c-feed-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-c-reportar" class="hidden max-w-3xl mx-auto">
+                    <div class="bg-white border border-gray-300 rounded shadow-sm">
                         <form id="wizard-form" class="p-6">
                             <div id="step-1" class="step-content">
-                                <label class="block text-sm font-bold text-gray-800 mb-2">1. Onde está o problema?</label>
-                                <p class="text-xs text-gray-500 mb-4">Utilize o detector automático ou mova o pino no mapa.</p>
-                                
-                                <button type="button" onclick="getLocation()" class="mb-4 w-full py-2.5 bg-brand-dark text-white text-sm font-medium rounded hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
-                                    <i class="ph ph-crosshair"></i> Obter Localização Exata
-                                </button>
-
-                                <div id="map-report" class="w-full h-64 border border-gray-300 rounded mb-4 z-10 bg-gray-100"></div>
+                                <h3 class="font-bold text-brand-dark mb-4 text-lg border-b border-gray-200 pb-2">1. Localização do Incidente</h3>
+                                <div class="flex gap-4 mb-4">
+                                    <button type="button" onclick="getLocation()" class="flex-1 py-2.5 bg-gray-100 border border-gray-300 text-brand-dark text-sm font-semibold rounded hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                                        <i class="ph ph-crosshair"></i> Obter Localização Atual
+                                    </button>
+                                </div>
+                                <div id="map-report" class="w-full h-72 border border-gray-300 rounded mb-4 z-10 bg-gray-100"></div>
+                                <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded">
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Endereço Identificado</label>
+                                    <p id="address-display" class="text-sm font-medium text-brand-dark">Nenhum local selecionado.</p>
+                                </div>
                                 <input type="hidden" id="form-lat" required>
                                 <input type="hidden" id="form-lng" required>
-
-                                <div class="flex justify-end border-t pt-4">
-                                    <button type="button" onclick="nextStep(2)" class="bg-brand-blue text-white px-6 py-2 rounded text-sm font-semibold">Prosseguir</button>
+                                <input type="hidden" id="form-address" required>
+                                <div class="flex justify-end">
+                                    <button type="button" onclick="nextStep(2)" class="bg-brand-blue text-white px-6 py-2 rounded text-sm font-semibold hover:bg-blue-800 transition-colors">Prosseguir</button>
                                 </div>
                             </div>
 
                             <div id="step-2" class="step-content hidden">
-                                <label class="block text-sm font-bold text-gray-800 mb-4">2. Detalhamento Técnico</label>
-                                
+                                <h3 class="font-bold text-brand-dark mb-4 text-lg border-b border-gray-200 pb-2">2. Detalhamento</h3>
                                 <div class="space-y-4 mb-6">
                                     <div>
                                         <label class="block text-xs font-bold text-gray-600 mb-1">Classificação *</label>
@@ -193,77 +289,186 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold text-gray-600 mb-1">Descrição do Cenário *</label>
-                                        <textarea id="form-desc" required rows="3" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none resize-none" placeholder="Ex: Via principal totalmente bloqueada, água atingindo calçadas..."></textarea>
+                                        <label class="block text-xs font-bold text-gray-600 mb-1">Descrição Técnica *</label>
+                                        <textarea id="form-desc" required rows="4" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none resize-none" placeholder="Detalhe a situação atual..."></textarea>
                                     </div>
                                 </div>
-
-                                <div class="flex justify-between border-t pt-4">
-                                    <button type="button" onclick="prevStep(1)" class="border border-gray-300 text-gray-700 px-6 py-2 rounded text-sm font-semibold hover:bg-gray-50">Voltar</button>
-                                    <button type="submit" class="bg-brand-blue text-white px-6 py-2 rounded text-sm font-semibold">Submeter Registro</button>
+                                <div class="flex justify-between">
+                                    <button type="button" onclick="prevStep(1)" class="border border-gray-300 text-gray-700 px-6 py-2 rounded text-sm font-semibold hover:bg-gray-100 transition-colors">Voltar</button>
+                                    <button type="submit" class="bg-brand-blue text-white px-6 py-2 rounded text-sm font-semibold hover:bg-blue-800 transition-colors">Emitir Protocolo</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div id="view-meus-registros" class="hidden max-w-5xl mx-auto flex-col gap-6">
-                    <div id="c-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        </div>
+                <div id="view-c-historico" class="hidden flex-col gap-4 max-w-5xl mx-auto">
+                    <div class="overflow-x-auto bg-white border border-gray-200 rounded shadow-sm">
+                        <table class="w-full text-left text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold text-xs uppercase tracking-wider">
+                                    <th class="p-4">Protocolo</th>
+                                    <th class="p-4">Data</th>
+                                    <th class="p-4">Classificação</th>
+                                    <th class="p-4">Endereço</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="c-historico-table" class="divide-y divide-gray-200"></tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div id="view-painel-geral" class="hidden flex-col gap-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white border-l-4 border-brand-dark border-y border-r border-gray-200 p-5 rounded-r shadow-sm">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Registros Totais</p>
-                            <h4 class="text-3xl font-bold text-brand-dark mt-2 font-mono" id="kpi-total">0</h4>
-                        </div>
-                        <div class="bg-white border-l-4 border-gray-400 border-y border-r border-gray-200 p-5 rounded-r shadow-sm">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Aguardando Triagem</p>
-                            <h4 class="text-3xl font-bold text-gray-700 mt-2 font-mono" id="kpi-pendentes">0</h4>
-                        </div>
-                        <div class="bg-white border-l-4 border-brand-red border-y border-r border-gray-200 p-5 rounded-r shadow-sm">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Riscos Críticos</p>
-                            <h4 class="text-3xl font-bold text-brand-red mt-2 font-mono" id="kpi-criticos">0</h4>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="bg-white border border-gray-200 p-6 rounded shadow-sm h-96 flex flex-col">
-                            <h4 class="text-sm font-bold text-brand-dark mb-4">Volume por Classificação</h4>
-                            <div class="relative flex-1 w-full">
-                                <canvas id="categoryChart"></canvas>
+                <div id="view-c-alertas" class="hidden flex-col gap-4 max-w-5xl mx-auto">
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded shadow-sm">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0"><i class="ph-fill ph-warning text-yellow-600 text-xl"></i></div>
+                            <div class="ml-3">
+                                <p class="text-sm text-yellow-700 font-bold">Aviso Meteorológico INMET (Simulado)</p>
+                                <p class="text-xs text-yellow-600 mt-1">Risco de chuvas moderadas a fortes nas próximas 24h em Maceió. Atenção redobrada em áreas de encosta.</p>
                             </div>
                         </div>
-                        <div class="bg-white border border-gray-200 p-6 rounded shadow-sm h-96 flex flex-col">
-                            <h4 class="text-sm font-bold text-brand-dark mb-4">Distribuição Espacial</h4>
-                            <div id="map-overview" class="w-full flex-1 border border-gray-300 rounded bg-gray-100 z-10"></div>
+                    </div>
+                    
+                    <h3 class="font-bold text-brand-dark mb-2 text-sm border-b pb-2">Log de Alertas Automatizados (Sensores)</h3>
+                    <div id="c-alertas-lista" class="grid gap-3">
+                        <div class="p-8 text-center bg-white border border-gray-200 rounded text-gray-400 text-sm">
+                            Nenhum alerta autônomo registrado na sua sessão até o momento.
                         </div>
                     </div>
                 </div>
 
-                <div id="view-triagem" class="hidden flex-col">
-                    <div class="bg-white border border-gray-200 rounded shadow-sm">
+                <div id="view-o-dashboard" class="hidden flex-col gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white border-l-4 border-brand-dark border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Base de Dados</p>
+                            <h4 class="text-2xl font-bold text-brand-dark mt-1 font-mono" id="kpi-total">0</h4>
+                        </div>
+                        <div class="bg-white border-l-4 border-gray-400 border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Aguardando Triagem</p>
+                            <h4 class="text-2xl font-bold text-gray-700 mt-1 font-mono" id="kpi-pendentes">0</h4>
+                        </div>
+                        <div class="bg-white border-l-4 border-brand-red border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Riscos Críticos</p>
+                            <h4 class="text-2xl font-bold text-brand-red mt-1 font-mono" id="kpi-criticos">0</h4>
+                        </div>
+                        <div class="bg-white border-l-4 border-brand-blue border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Resolvidos</p>
+                            <h4 class="text-2xl font-bold text-brand-blue mt-1 font-mono" id="kpi-resolvidos">0</h4>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 bg-white border border-gray-200 p-6 rounded shadow-sm h-96 flex flex-col">
+                            <h4 class="text-sm font-bold text-brand-dark mb-4">Volume por Classificação</h4>
+                            <div class="relative flex-1 w-full"><canvas id="categoryChart"></canvas></div>
+                        </div>
+                        
+                        <div class="lg:col-span-1 bg-brand-dark border border-gray-800 p-6 rounded shadow-sm h-96 flex flex-col text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10"><i class="ph ph-cpu text-8xl"></i></div>
+                            <div class="flex justify-between items-center mb-6 relative z-10">
+                                <h4 class="text-sm font-bold tracking-wide">Sensores da ANA</h4>
+                                <span class="flex items-center gap-2 text-[10px] font-bold text-green-400 uppercase tracking-widest">
+                                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Live
+                                </span>
+                            </div>
+                            <div class="flex-1 flex flex-col gap-6 relative z-10">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-gray-300">Nível - Riacho Salgadinho</span>
+                                        <span id="o-iot-val-1" class="font-mono font-bold text-blue-400">45%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div id="o-iot-bar-1" class="bg-blue-400 h-2 rounded-full transition-all duration-1000" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-gray-300">Pluviômetro - Mutange</span>
+                                        <span id="o-iot-val-2" class="font-mono font-bold text-green-400">12mm/h</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div id="o-iot-bar-2" class="bg-green-400 h-2 rounded-full transition-all duration-1000" style="width: 12%"></div>
+                                    </div>
+                                </div>
+                                <div class="mt-auto bg-black/30 p-3 rounded border border-gray-700">
+                                    <p class="text-[10px] text-gray-400 font-mono uppercase mb-1">Automação (Mock)</p>
+                                    <div id="iot-log" class="text-xs text-gray-300 font-mono h-12 overflow-y-auto flex flex-col justify-end">
+                                        <span>> Operante. Aguardando limites...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-o-mapa" class="hidden h-full flex-col bg-white border border-gray-200 rounded shadow-sm">
+                    <div class="p-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center shrink-0">
+                        <h3 class="font-bold text-sm text-brand-dark">Geoprocessamento</h3>
+                        <label class="flex items-center gap-2 cursor-pointer bg-white px-3 py-1.5 border border-gray-300 rounded shadow-sm hover:bg-gray-50 transition-colors">
+                            <input type="checkbox" id="toggle-radar" class="w-4 h-4 text-brand-blue rounded border-gray-300 focus:ring-brand-blue" onchange="toggleRadar(this.checked)">
+                            <span class="text-xs font-semibold text-gray-700"><i class="ph ph-cloud-rain mr-1"></i> Radar CEMADEN</span>
+                        </label>
+                    </div>
+                    <div id="o-main-map" class="w-full flex-1 z-10"></div>
+                </div>
+
+                <div id="view-o-triagem" class="hidden flex-col">
+                    <div class="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-sm border-collapse">
                                 <thead>
                                     <tr class="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold text-xs uppercase tracking-wider">
                                         <th class="p-4">Protocolo</th>
                                         <th class="p-4">Data</th>
+                                        <th class="p-4">Endereço Oficial</th>
                                         <th class="p-4">Classificação</th>
-                                        <th class="p-4">Status</th>
-                                        <th class="p-4">Coordenadas</th>
+                                        <th class="p-4">Status Logístico</th>
                                     </tr>
                                 </thead>
-                                <tbody id="table-body" class="divide-y divide-gray-200">
-                                    </tbody>
+                                <tbody id="table-triagem" class="divide-y divide-gray-200"></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <div id="view-em-construcao" class="hidden flex-col items-center justify-center h-full text-gray-400">
+                    <i class="ph ph-wrench text-5xl mb-4 text-gray-300"></i>
+                    <h3 class="text-lg font-bold text-gray-500">Módulo Indisponível</h3>
+                    <p class="text-sm">Área em desenvolvimento para a Fase 2.</p>
+                </div>
             </div>
         </main>
+    </div>
+
+    <div id="edit-modal" class="hidden fixed inset-0 z-[100] bg-brand-dark/60 flex items-center justify-center p-4">
+        <div class="bg-white rounded shadow-xl w-full max-w-lg border border-gray-300">
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                <h3 class="font-bold text-brand-dark">Editar Registro</h3>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-brand-red transition-colors"><i class="ph ph-x text-xl"></i></button>
+            </div>
+            <form id="edit-form" class="p-6">
+                <input type="hidden" id="edit-id">
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-gray-600 mb-1">Classificação</label>
+                    <select id="edit-cat" required class="w-full p-2.5 border border-gray-300 rounded text-sm bg-white focus:border-brand-dark outline-none">
+                        <option value="enchente">Alagamento / Enchente</option>
+                        <option value="deslizamento">Movimentação de Massa (Deslizamento)</option>
+                        <option value="lixo">Acúmulo Crítico de Resíduos</option>
+                        <option value="arvore">Queda de Árvore / Bloqueio Viário</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-xs font-bold text-gray-600 mb-1">Descrição</label>
+                    <textarea id="edit-desc" required rows="4" class="w-full p-2.5 border border-gray-300 rounded text-sm bg-white focus:border-brand-dark outline-none resize-none"></textarea>
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 border border-gray-300 rounded text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-brand-dark text-white rounded text-sm font-semibold hover:bg-gray-800 transition-colors">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
