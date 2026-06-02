@@ -1,0 +1,122 @@
+<header class="border-b border-gray-200 bg-white sticky top-0 z-40 shadow-sm">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="w-4 h-4 bg-brand-red rounded-sm"></div>
+            <div class="w-4 h-4 bg-brand-blue rounded-sm -ml-2"></div>
+            <h1 class="text-xl font-bold tracking-tight text-brand-dark ml-2">CIMADEC</h1>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-semibold text-gray-600">
+            <a href="#inicio" class="hover:text-brand-blue transition-colors">Início</a>
+            <a href="#sobre" class="hover:text-brand-blue transition-colors">Como Funciona</a>
+            <a href="#funcionalidades" class="hover:text-brand-blue transition-colors">Funcionalidades</a>
+        </nav>
+        <a href="#acesso" class="bg-brand-dark text-white px-5 py-2 rounded text-sm font-semibold hover:bg-gray-800 transition-colors">
+            Acessar Plataforma
+        </a>
+    </div>
+</header>
+
+<main class="flex-grow">
+    <section id="inicio" class="bg-brand-dark text-white py-24 lg:py-32 border-b border-brand-blue/20">
+        <div class="container mx-auto px-6 max-w-5xl text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold uppercase tracking-widest text-gray-300 mb-6">
+                <span class="w-2 h-2 rounded-full bg-green-500"></span> Sistema Operacional
+            </div>
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">Gestão Inteligente de<br><span class="text-brand-blue text-blue-400">Crises Urbanas</span> em Maceió</h2>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+                Uma plataforma independente projetada para centralizar o monitoramento geoespacial. Conectamos o reporte cidadão à resposta logística, mitigando os impactos de enchentes, deslizamentos e falhas de infraestrutura.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#acesso" class="bg-brand-blue text-white px-8 py-3.5 rounded text-sm font-bold hover:bg-blue-800 transition-colors">Iniciar Sessão</a>
+                <a href="#sobre" class="bg-transparent border border-gray-500 text-gray-300 px-8 py-3.5 rounded text-sm font-bold hover:bg-white/5 transition-colors">Conhecer o Sistema</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-sm font-bold text-brand-blue uppercase tracking-widest mb-2">O Problema & A Solução</h3>
+                    <h4 class="text-3xl font-bold text-brand-dark mb-6 leading-tight">Mapeamento dinâmico para respostas rápidas.</h4>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Maceió possui um histórico documentado de vulnerabilidades climáticas e geológicas. O <strong>CIMADEC</strong> foi concebido para eliminar a fragmentação de informações.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Ao invés de formulários estáticos, oferecemos um ambiente onde ocorrências são georreferenciadas no ato do reporte. A triagem é feita através de mapas de calor e painéis de volumetria, permitindo que operadores direcionem equipes de campo com precisão cirúrgica.
+                    </p>
+                    <div class="flex items-center gap-4 border-l-4 border-brand-red pl-4 py-2">
+                        <i class="ph ph-shield-warning text-3xl text-brand-red"></i>
+                        <span class="text-sm font-semibold text-gray-800">Foco em transparência técnica e rastreabilidade logística.</span>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 bg-gray-100 rounded-lg h-80 border border-gray-200 flex items-center justify-center relative overflow-hidden">
+                    <i class="ph ph-map-trifold text-9xl text-gray-300"></i>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-blue/10 to-transparent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="funcionalidades" class="py-20 bg-gray-50 border-y border-gray-200">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-bold text-brand-dark mb-4">Arquitetura de Funcionalidades</h3>
+                <p class="text-gray-600 text-sm">Módulos integrados projetados para eficiência operacional e prevenção.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-brand-blue transition-colors">
+                    <i class="ph ph-crosshair text-4xl text-brand-blue mb-4"></i>
+                    <h4 class="font-bold text-brand-dark mb-2">Reverse Geocoding</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Captura de latitude e longitude via satélite com conversão automática para logradouros oficiais em Maceió (API OSM).</p>
+                </div>
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-brand-red transition-colors">
+                    <i class="ph ph-chart-line-up text-4xl text-brand-red mb-4"></i>
+                    <h4 class="font-bold text-brand-dark mb-2">Telemetria & IoT</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Integração com sensores de nível e pluviômetros. O sistema dispara alertas automáticos em caso de anomalias hídricas.</p>
+                </div>
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-gray-800 transition-colors">
+                    <i class="ph ph-kanban text-4xl text-gray-700 mb-4"></i>
+                    <h4 class="font-bold text-brand-dark mb-2">Fila de Triagem</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Controle de status (Pendente, Em Análise, Resolvido) centralizado. Rastreabilidade completa da ocorrência do início ao fim.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="acesso" class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-brand-dark mb-4">Portal de Acesso</h3>
+                <p class="text-gray-600 text-sm">Selecione o perfil de operação adequado.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <button onclick="loginAs('cidadao')" class="text-left group flex flex-col items-center text-center gap-4 p-8 border border-gray-300 rounded hover:border-brand-blue hover:shadow-md bg-white transition-all">
+                    <div class="p-4 bg-gray-100 rounded-full group-hover:bg-brand-blue group-hover:text-white transition-colors">
+                        <i class="ph ph-user text-3xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Acesso Cidadão</h4>
+                        <p class="text-xs text-gray-500">Radar de entorno automático, telemetria ambiental e reporte georreferenciado de incidentes locais.</p>
+                    </div>
+                </button>
+                
+                <button onclick="loginAs('operador')" class="text-left group flex flex-col items-center text-center gap-4 p-8 border border-gray-300 rounded hover:border-brand-red hover:shadow-md bg-white transition-all">
+                    <div class="p-4 bg-gray-100 rounded-full group-hover:bg-brand-red group-hover:text-white transition-colors">
+                        <i class="ph ph-shield-check text-3xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-brand-dark mb-2">Centro de Operações</h4>
+                        <p class="text-xs text-gray-500">Painel logístico de triagem, mapa de calor, integração de radar CEMADEN e gestão em massa.</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-brand-dark border-t border-gray-800 text-gray-500 text-center py-6 text-xs uppercase tracking-widest font-semibold">
+    &copy; 2026 CIMADEC | Plataforma Independente
+</footer>

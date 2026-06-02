@@ -1,0 +1,23 @@
+<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded shadow-sm">
+    <div class="flex items-center">
+        <div class="flex-shrink-0"><i class="ph-fill ph-warning text-yellow-600 text-xl"></i></div>
+        <div class="ml-3">
+            <p class="text-sm text-yellow-700 font-bold">Aviso Meteorológico INMET (Simulado)</p>
+            <p class="text-xs text-yellow-600 mt-1">Risco de chuvas moderadas a fortes nas próximas 24h em Maceió. Atenção redobrada em áreas de encosta.</p>
+        </div>
+    </div>
+</div>
+
+<h3 class="font-bold text-brand-dark mb-2 text-sm border-b pb-2">Log de Alertas Automatizados (Sensores)</h3>
+<div id="c-alertas-lista" class="grid gap-3"></div>
+
+<template id="alert-card-template">
+    <div class="border border-red-200 bg-red-50 p-4 rounded shadow-sm">
+        <div class="flex items-center gap-2 mb-2">
+            <i class="ph-fill ph-siren text-red-600 text-lg"></i>
+            <h4 class="font-bold text-red-800 text-sm">Disparo de Sensor IoT</h4>
+            <span class="ml-auto text-[10px] font-mono text-red-500 alert-time"></span>
+        </div>
+        <p class="text-sm text-red-700 font-medium alert-msg"></p>
+    </div>
+</template>

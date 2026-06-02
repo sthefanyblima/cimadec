@@ -4,7 +4,7 @@
 ![Frontend](https://img.shields.io/badge/frontend-HTML%2FCSS%2FJS-orange)
 ![License](https://img.shields.io/badge/license-Acad%C3%AAmico-green)
 
-## 📌 Sobre o Projeto
+##  Sobre o Projeto
 
 O **CIMADEC (Centro Integrado de Monitoramento e Análise de Desastres e Crises)** é uma plataforma web desenvolvida para auxiliar o monitoramento e o gerenciamento de ocorrências urbanas na cidade de **Maceió – AL**.
 
@@ -12,17 +12,17 @@ A proposta do sistema é funcionar como uma ponte entre a população e os órg�
 
 Entre as ocorrências monitoradas estão:
 
-- 🌊 Enchentes
-- ⛰️ Deslizamentos de encostas
-- 🗑️ Acúmulo irregular de lixo
-- 🌳 Queda de árvores
-- 🚧 Problemas de infraestrutura urbana
+-  Enchentes
+-  Deslizamentos de encostas
+-  Acúmulo irregular de lixo
+-  Queda de árvores
+-  Problemas de infraestrutura urbana
 
 Além do registro das ocorrências, a plataforma disponibiliza um painel de monitoramento para visualização e análise dos dados coletados.
 
 ---
 
-# 🎯 Objetivos
+#  Objetivos
 
 ## Objetivo Geral
 
@@ -38,7 +38,7 @@ Desenvolver um protótipo funcional de uma plataforma web para monitoramento de 
 
 ---
 
-# 🛠️ Tecnologias Utilizadas
+#  Tecnologias Utilizadas
 
 | Tecnologia | Finalidade |
 |------------|------------|
@@ -54,46 +54,53 @@ Desenvolver um protótipo funcional de uma plataforma web para monitoramento de 
 
 ---
 
-# 🏗️ Arquitetura do Projeto
+#  Arquitetura do Projeto
 
 O sistema segue uma arquitetura totalmente **Client-Side**, ou seja, toda a execução ocorre diretamente no navegador.
 
 ### Características
 
-✅ Sem back-end
+ Sem back-end
 
-✅ Sem banco de dados
+ Sem banco de dados
 
-✅ Sem autenticação real
+ Sem autenticação real
 
-✅ Compatível com GitHub Pages
+ Compatível com GitHub Pages
 
-✅ Persistência local utilizando localStorage
+ Persistência local utilizando localStorage
 
-✅ Sem necessidade de instalação de dependências
+ Sem necessidade de instalação de dependências
 
 ---
 
-# 📁 Estrutura do Projeto
+#  Estrutura do Projeto
 
 ```text
 /
 ├── index.html
+├── views/
+│   ├── landing.html
+│   ├── sidebar.html
+│   ├── c-dashboard.html
+│   └── (outros componentes visuais)
 ├── css/
-│   └── style.css
-├── js/
-│   └── script.js
-├── README.md
-└── .gitignore
+│   ├── main.css
+│   └── (estilos particionados)
+└── js/
+    ├── main.js
+    ├── ui.js
+    ├── storage.js
+    └── (outros módulos lógicos)
 ```
 
 ---
 
-# 👥 Perfis de Usuário
+#  Perfis de Usuário
 
 A aplicação foi dividida em dois fluxos principais:
 
-## 👤 Cidadão
+##  Cidadão
 
 Responsável pelo registro das ocorrências.
 
@@ -115,7 +122,7 @@ Responsável pelo registro das ocorrências.
 
 ---
 
-## 🏢 Operador / Defesa Civil
+##  Operador / Defesa Civil
 
 Responsável pelo monitoramento e análise das ocorrências registradas.
 
@@ -137,7 +144,7 @@ Responsável pelo monitoramento e análise das ocorrências registradas.
 
 ---
 
-# 🌎 Georreferenciamento
+#  Georreferenciamento
 
 A plataforma utiliza:
 
@@ -156,7 +163,7 @@ para exibição dos mapas.
 
 ---
 
-# 🎨 Decisões de Design (UI/UX)
+#  Decisões de Design (UI/UX)
 
 ## Interface
 
@@ -188,7 +195,7 @@ O sistema foi projetado para funcionar em:
 
 ---
 
-# ⚙️ Funcionalidades Implementadas
+#  Funcionalidades Implementadas
 
 ### Landing Page
 
@@ -227,7 +234,7 @@ para manter os registros após recarregar a página.
 
 ---
 
-# 🚀 Como Executar o Projeto
+#  Como Executar o Projeto
 
 ## Método 1 — Abertura Direta
 
@@ -273,7 +280,7 @@ Open with Live Server
 
 ---
 
-# 💾 Persistência dos Dados
+#  Persistência dos Dados
 
 Os dados são armazenados localmente através da API:
 
@@ -289,7 +296,7 @@ Isso permite que as ocorrências continuem disponíveis mesmo após:
 
 ---
 
-# ⚠️ Limitações Conhecidas
+#  Limitações Conhecidas
 
 Por se tratar de um protótipo acadêmico de front-end:
 
@@ -303,7 +310,7 @@ Por se tratar de um protótipo acadêmico de front-end:
 
 ---
 
-# 🔮 Trabalhos Futuros
+#  Trabalhos Futuros
 
 As próximas evoluções previstas incluem:
 
@@ -330,7 +337,7 @@ As próximas evoluções previstas incluem:
 
 ---
 
-# 📚 Referências
+#  Referências
 
 - HTML Living Standard
 - Tailwind CSS Documentation
@@ -341,13 +348,13 @@ As próximas evoluções previstas incluem:
 
 ---
 
-# 👨‍💻 Autores
+#  Autores
 
 Projeto desenvolvido para fins acadêmicos na disciplina de Desenvolvimento Web, com foco em monitoramento de crises urbanas e participação cidadã.
 
 ---
 
-# 📄 Licença
+#  Licença
 
 Este projeto possui finalidade exclusivamente acadêmica e educacional.
 
