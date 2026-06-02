@@ -1,0 +1,63 @@
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-white border-l-4 border-brand-dark border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Base de Dados</p>
+        <h4 class="text-2xl font-bold text-brand-dark mt-1 font-mono" id="kpi-total">0</h4>
+    </div>
+    <div class="bg-white border-l-4 border-gray-400 border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Aguardando Triagem</p>
+        <h4 class="text-2xl font-bold text-gray-700 mt-1 font-mono" id="kpi-pendentes">0</h4>
+    </div>
+    <div class="bg-white border-l-4 border-brand-red border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Riscos Críticos</p>
+        <h4 class="text-2xl font-bold text-brand-red mt-1 font-mono" id="kpi-criticos">0</h4>
+    </div>
+    <div class="bg-white border-l-4 border-brand-blue border-y border-r border-gray-200 p-4 rounded-r shadow-sm">
+        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Resolvidos</p>
+        <h4 class="text-2xl font-bold text-brand-blue mt-1 font-mono" id="kpi-resolvidos">0</h4>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 bg-white border border-gray-200 p-6 rounded shadow-sm h-96 flex flex-col">
+        <h4 class="text-sm font-bold text-brand-dark mb-4">Volume por Classificação</h4>
+        <div class="relative w-full h-[250px]">
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+    
+    <div class="lg:col-span-1 bg-brand-dark border border-gray-800 p-6 rounded shadow-sm h-96 flex flex-col text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-4 opacity-10"><i class="ph ph-cpu text-8xl"></i></div>
+        <div class="flex justify-between items-center mb-6 relative z-10">
+            <h4 class="text-sm font-bold tracking-wide">Sensores da ANA</h4>
+            <span class="flex items-center gap-2 text-[10px] font-bold text-green-400 uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Live
+            </span>
+        </div>
+        <div class="flex-1 flex flex-col gap-6 relative z-10">
+            <div>
+                <div class="flex justify-between text-xs mb-1">
+                    <span class="text-gray-300">Nível - Riacho Salgadinho</span>
+                    <span id="o-iot-val-1" class="font-mono font-bold text-blue-400">45%</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div id="o-iot-bar-1" class="bg-blue-400 h-2 rounded-full transition-all duration-1000" style="width: 45%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs mb-1">
+                    <span class="text-gray-300">Pluviômetro - Mutange</span>
+                    <span id="o-iot-val-2" class="font-mono font-bold text-green-400">12mm/h</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div id="o-iot-bar-2" class="bg-green-400 h-2 rounded-full transition-all duration-1000" style="width: 12%"></div>
+                </div>
+            </div>
+            <div class="mt-auto bg-black/30 p-3 rounded border border-gray-700">
+                <p class="text-[10px] text-gray-400 font-mono uppercase mb-1">Automação (Mock)</p>
+                <div id="iot-log" class="text-xs text-gray-300 font-mono h-12 overflow-y-auto flex flex-col justify-end">
+                    <span>> Operante. Aguardando limites...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

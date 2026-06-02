@@ -1,0 +1,32 @@
+<div class="bg-white border border-gray-200 rounded shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm border-collapse">
+            <thead>
+                <tr class="bg-gray-50 border-b border-gray-200 text-gray-600 font-bold text-xs uppercase tracking-wider">
+                    <th class="p-4">Protocolo</th>
+                    <th class="p-4">Data</th>
+                    <th class="p-4">Endereço Oficial</th>
+                    <th class="p-4">Classificação</th>
+                    <th class="p-4">Status Logístico</th>
+                </tr>
+            </thead>
+            <tbody id="table-triagem" class="divide-y divide-gray-200"></tbody>
+        </table>
+    </div>
+</div>
+
+<template id="triagem-row-template">
+    <tr class="hover:bg-gray-50 border-b border-gray-100 transition-colors">
+        <td class="p-4 font-mono text-xs font-bold text-brand-dark row-id"></td>
+        <td class="p-4 text-xs text-gray-500 row-date"></td>
+        <td class="p-4 text-xs text-gray-600 truncate max-w-[250px] row-addr"></td>
+        <td class="p-4 text-xs font-semibold text-gray-800 row-cat"></td>
+        <td class="p-4">
+            <select class="text-xs border border-gray-300 rounded p-1.5 bg-white text-gray-700 outline-none cursor-pointer row-select">
+                <option value="novo">Pendente / Novo</option>
+                <option value="em_analise">Em Análise / Triagem</option>
+                <option value="resolvido">Resolvido / Arquivado</option>
+            </select>
+        </td>
+    </tr>
+</template>

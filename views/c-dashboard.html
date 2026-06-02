@@ -1,0 +1,63 @@
+<div id="c-entorno-banner" class="bg-brand-blue text-white p-5 rounded shadow-sm flex items-center gap-4 border border-blue-800">
+    <div class="p-3 bg-blue-800 rounded-full"><i class="ph ph-radar text-2xl"></i></div>
+    <div>
+        <h4 class="font-bold text-sm">Análise do seu entorno</h4>
+        <p class="text-xs text-blue-200 mt-1" id="c-entorno-msg">Analisando coordenadas atuais em relação à base de dados...</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[500px]">
+    <div class="lg:col-span-2 bg-white border border-gray-200 rounded shadow-sm flex flex-col h-full">
+        <div class="p-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center shrink-0">
+            <h3 class="font-bold text-sm text-brand-dark">Radar de Ocorrências Ativas</h3>
+        </div>
+        <div id="c-main-map" class="w-full flex-1 z-10"></div>
+    </div>
+
+    <div class="lg:col-span-1 flex flex-col gap-6 h-full">
+        <div class="bg-brand-dark border border-gray-800 p-4 rounded shadow-sm text-white shrink-0">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="text-xs font-bold tracking-wide uppercase text-gray-400">Dados Ambientais Locais</h4>
+            </div>
+            <div class="flex flex-col gap-4">
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-300">Riacho Salgadinho</span>
+                        <span id="c-iot-val-1" class="font-mono font-bold text-blue-400">45%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-1.5">
+                        <div id="c-iot-bar-1" class="bg-blue-400 h-1.5 rounded-full transition-all duration-1000" style="width: 45%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-300">Chuvas - Pluviômetro</span>
+                        <span id="c-iot-val-2" class="font-mono font-bold text-green-400">12mm</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-1.5">
+                        <div id="c-iot-bar-2" class="bg-green-400 h-1.5 rounded-full transition-all duration-1000" style="width: 12%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col bg-white border border-gray-200 rounded shadow-sm flex-1 overflow-hidden">
+            <div class="p-3 border-b border-gray-200 bg-gray-50 shrink-0">
+                <h3 class="font-bold text-xs text-brand-dark uppercase tracking-widest">Acontecendo Agora</h3>
+            </div>
+            <div class="flex-1 overflow-y-auto p-3 flex flex-col gap-3" id="c-feed-list"></div>
+        </div>
+    </div>
+</div>
+
+<template id="feed-item-template">
+    <div class="border border-gray-200 bg-white rounded p-3 cursor-pointer hover:border-brand-blue hover:shadow-sm transition-all">
+        <div class="flex items-center gap-2 mb-1">
+            <i class="text-gray-500"></i>
+            <span class="font-bold text-xs text-brand-dark item-cat-name"></span>
+            <span class="ml-auto text-[10px] text-gray-400 font-mono item-date"></span>
+        </div>
+        <p class="text-xs text-gray-600 line-clamp-1 mb-1 item-addr"></p>
+        <div class="text-[10px] font-mono font-bold uppercase tracking-wider item-status"></div>
+    </div>
+</template>

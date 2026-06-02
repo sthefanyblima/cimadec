@@ -1,0 +1,47 @@
+<div class="bg-white border border-gray-300 rounded shadow-sm">
+    <form id="wizard-form" class="p-6">
+        <div id="step-1" class="step-content">
+            <h3 class="font-bold text-brand-dark mb-4 text-lg border-b border-gray-200 pb-2">1. Localização do Incidente</h3>
+            <div class="flex gap-4 mb-4">
+                <button type="button" onclick="getLocation()" class="flex-1 py-2.5 bg-gray-100 border border-gray-300 text-brand-dark text-sm font-semibold rounded hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                    <i class="ph ph-crosshair"></i> Obter Localização Atual
+                </button>
+            </div>
+            <div id="map-report" class="w-full h-72 border border-gray-300 rounded mb-4 z-10 bg-gray-100"></div>
+            <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Endereço Identificado</label>
+                <p id="address-display" class="text-sm font-medium text-brand-dark">Nenhum local selecionado.</p>
+            </div>
+            <input type="hidden" id="form-lat" required>
+            <input type="hidden" id="form-lng" required>
+            <input type="hidden" id="form-address" required>
+            <div class="flex justify-end">
+                <button type="button" onclick="nextStep(2)" class="bg-brand-blue text-white px-6 py-2 rounded text-sm font-semibold hover:bg-blue-800 transition-colors">Prosseguir</button>
+            </div>
+        </div>
+
+        <div id="step-2" class="step-content hidden">
+            <h3 class="font-bold text-brand-dark mb-4 text-lg border-b border-gray-200 pb-2">2. Detalhamento</h3>
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">Classificação *</label>
+                    <select id="form-cat" required class="w-full p-2.5 border border-gray-300 rounded text-sm bg-white focus:border-brand-dark outline-none">
+                        <option value="">Selecione...</option>
+                        <option value="enchente">Alagamento / Enchente</option>
+                        <option value="deslizamento">Movimentação de Massa (Deslizamento)</option>
+                        <option value="lixo">Acúmulo Crítico de Resíduos</option>
+                        <option value="arvore">Queda de Árvore / Bloqueio Viário</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">Descrição Técnica *</label>
+                    <textarea id="form-desc" required rows="4" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none resize-none" placeholder="Detalhe a situação atual..."></textarea>
+                </div>
+            </div>
+            <div class="flex justify-between">
+                <button type="button" onclick="prevStep(1)" class="border border-gray-300 text-gray-700 px-6 py-2 rounded text-sm font-semibold hover:bg-gray-100 transition-colors">Voltar</button>
+                <button type="submit" class="bg-brand-blue text-white px-6 py-2 rounded text-sm font-semibold hover:bg-blue-800 transition-colors">Emitir Protocolo</button>
+            </div>
+        </div>
+    </form>
+</div>
