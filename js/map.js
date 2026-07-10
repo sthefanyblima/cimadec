@@ -81,13 +81,13 @@ function getLocation() {
                 const inMaceioLat = lat > -9.8 && lat < -9.4;
                 const inMaceioLng = lng > -35.9 && lng < -35.5;
                 if(!inMaceioLat || !inMaceioLng) {
-                    alert("Localização imprecisa. O pino será posicionado no centro. Arraste-o para o local.");
+                    showToast("Localização imprecisa. O pino foi posto no centro — arraste-o para o local.", 'warning');
                     lat = -9.664448; lng = -35.735075;
                 }
                 setMapPin(lat, lng);
             },
             (err) => {
-                alert("Sinal GPS indisponível. Clique diretamente no mapa.");
+                showToast("Sinal GPS indisponível. Clique diretamente no mapa.", 'error');
                 document.getElementById('address-display').textContent = "Defina o local no mapa.";
             },
             geoOptions
@@ -105,7 +105,7 @@ window.toggleRadar = async function(isOn) {
             const latestFrame = data.radar.past[data.radar.past.length - 1].path;
             rainLayer = L.tileLayer(`https://tilecache.rainviewer.com${latestFrame}/256/{z}/{x}/{y}/2/1_1.png`, { opacity: 0.6, zIndex: 20 }).addTo(oMap);
         } catch (e) {
-            alert("Radar indisponível.");
+            showToast("Radar meteorológico indisponível no momento.", 'error');
             document.getElementById('toggle-radar').checked = false;
         }
     }

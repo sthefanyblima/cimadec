@@ -27,8 +27,11 @@
     <div id="landing-view" class="fixed inset-0 z-50 bg-white overflow-y-auto flex flex-col" data-include="views/landing.html"></div>
 
     <div id="app-wrapper" class="hidden w-full h-full flex">
-        
-        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col shrink-0" data-include="views/sidebar.html"></aside>
+
+        <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 flex flex-col shrink-0 fixed md:static inset-y-0 left-0 z-[70] -translate-x-full md:translate-x-0 transition-transform duration-200" data-include="views/sidebar.html"></aside>
+
+        <!-- Backdrop do menu no mobile -->
+        <div id="sidebar-backdrop" class="hidden fixed inset-0 bg-black/40 z-[65] md:hidden" onclick="toggleSidebar(false)"></div>
 
         <main class="flex-1 flex flex-col min-w-0 bg-gray-50 relative">
             
@@ -43,8 +46,13 @@
                 <button onclick="this.parentElement.classList.add('hidden')" class="text-white hover:text-red-200"><i class="ph ph-x"></i></button>
             </div>
 
-            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
-                <h2 id="page-title" class="text-lg font-bold text-brand-dark">Dashboard</h2>
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-8 shrink-0">
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleSidebar()" class="md:hidden text-brand-dark hover:text-brand-blue transition-colors" aria-label="Abrir menu de navegação">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                    <h2 id="page-title" class="text-lg font-bold text-brand-dark">Dashboard</h2>
+                </div>
                 <div class="text-xs font-mono text-gray-500 border border-gray-300 px-3 py-1 rounded flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-green-600 block animate-pulse"></span> Sensores Ativos
                 </div>
@@ -74,6 +82,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/data.js"></script>
     <script src="js/storage.js"></script>
+    <script src="js/notify.js"></script>
     <script src="js/map.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/citizen.js"></script>   <script src="js/operator.js"></script>  <script src="js/iot.js"></script>       <script src="js/form.js"></script>

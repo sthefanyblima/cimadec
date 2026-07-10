@@ -1,5 +1,8 @@
 function nextStep(step) {
-    if(step === 2 && !document.getElementById('form-lat').value) return alert('Selecione o local no mapa.');
+    if(step === 2 && !document.getElementById('form-lat').value) {
+        showToast('Selecione o local no mapa antes de prosseguir.', 'warning');
+        return;
+    }
     document.getElementById('step-1').classList.add('hidden');
     document.getElementById('step-2').classList.remove('hidden');
 }
@@ -12,7 +15,11 @@ function prevStep(step) {
 
 window.openEditModal = function(id) {
     const doc = db.find(d => d.id === id);
-    if(doc.status !== 'novo') return alert('Apenas registros pendentes podem ser editados.');
+    if(!doc) return;
+    if(doc.status !== 'novo') {
+        showToast('Apenas registros pendentes podem ser editados.', 'warning');
+        return;
+    }
     document.getElementById('edit-id').value = doc.id;
     document.getElementById('edit-cat').value = doc.cat;
     document.getElementById('edit-desc').value = doc.desc;
@@ -22,11 +29,12 @@ window.openEditModal = function(id) {
 window.closeEditModal = function() { document.getElementById('edit-modal').classList.add('hidden'); }
 
 window.deleteRecord = function(id) {
-    if(confirm(`Cancelar protocolo ${id}?`)) {
+    showConfirm(`Deseja cancelar o protocolo ${id}? Esta ação não pode ser desfeita.`, () => {
         db = db.filter(d => d.id !== id);
         saveDb();
         renderCitizenHistory();
-    }
+        showToast(`Protocolo ${id} cancelado.`, 'info');
+    }, { confirmLabel: 'Cancelar protocolo', cancelLabel: 'Voltar' });
 }
 
 function initForms() {
@@ -46,8 +54,8 @@ function initForms() {
             };
             db.unshift(newDoc);
             saveDb();
-            alert(`Protocolo submetido: ${newDoc.id}`);
-            
+            showToast(`Protocolo ${newDoc.id} registrado com sucesso!`, 'success');
+
             e.target.reset();
             document.getElementById('address-display').textContent = "Nenhum local selecionado.";
             if(reportMarker) reportMap.removeLayer(reportMarker);
@@ -68,6 +76,7 @@ function initForms() {
             saveDb();
             closeEditModal();
             renderCitizenHistory();
+            showToast('Registro atualizado.', 'success');
         });
     }
 }

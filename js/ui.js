@@ -1,8 +1,6 @@
 const rolesConfig = {
     'cidadao': { avatar: 'C', name: 'Cidadão', roleLabel: 'Acesso Público', defaultView: 'c-dashboard' },
-    'operador': { avatar: 'O', name: 'Matrícula 8092', roleLabel: 'Centro de Operações', defaultView: 'o-dashboard' },
-    'superuser': { avatar: 'S', name: 'Admin', roleLabel: 'SuperUser', defaultView: 'o-dashboard' },
-    'leadership': { avatar: 'L', name: 'Diretoria', roleLabel: 'Leadership', defaultView: 'o-dashboard' }
+    'operador': { avatar: 'O', name: 'Matrícula 8092', roleLabel: 'Centro de Operações', defaultView: 'o-dashboard' }
 };
 
 function loginAs(role) {
@@ -44,6 +42,17 @@ function loginAs(role) {
 
 function logout() { window.location.reload(); }
 
+// Abre/fecha a sidebar no mobile. Sem argumento: alterna. Com booleano: força estado.
+function toggleSidebar(open) {
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (!sidebar || !backdrop) return;
+
+    const shouldOpen = open === undefined ? sidebar.classList.contains('-translate-x-full') : open;
+    sidebar.classList.toggle('-translate-x-full', !shouldOpen);
+    backdrop.classList.toggle('hidden', !shouldOpen);
+}
+
 function navigate(viewName, isMock = false) {
     document.querySelectorAll('main > div > div.flex, main > div > div.flex-col, main > div > div.max-w-3xl, main > div > div.overflow-x-auto, main > div > div.bg-white').forEach(div => div.classList.add('hidden'));
     
@@ -58,6 +67,9 @@ function navigate(viewName, isMock = false) {
         activeMenu.classList.add('bg-gray-100', 'text-brand-dark');
         document.getElementById('page-title').textContent = activeMenu.textContent.trim();
     }
+
+    // No mobile, fecha o menu ao escolher uma seção.
+    toggleSidebar(false);
 
     if (isMock) {
         document.getElementById('view-em-construcao').classList.remove('hidden');
