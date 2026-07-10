@@ -22,12 +22,12 @@ async function fetchAddress(lat, lng) {
 }
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    const R = 6371; 
+    const R = 6371;
     const dLat = (lat2 - lat1) * (Math.PI/180);
-    const dLon = (lon2 - lon1) * (Math.PI/180); 
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * (Math.PI/180)) * Math.cos(lat2 * (Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    return R * c; 
+    const dLon = (lon2 - lon1) * (Math.PI/180);
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * (Math.PI/180)) * Math.cos(lat2 * (Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
 }
 
 function initReportMap() {
@@ -41,13 +41,13 @@ async function setMapPin(lat, lng) {
     document.getElementById('form-lat').value = lat.toFixed(5);
     document.getElementById('form-lng').value = lng.toFixed(5);
     document.getElementById('address-display').innerHTML = "<span class='text-gray-500'>Sincronizando...</span>";
-    
+
     if(reportMarker) reportMap.removeLayer(reportMarker);
     if(reportCircle) reportMap.removeLayer(reportCircle);
-    
+
     reportCircle = L.circle([lat, lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(reportMap);
     reportMarker = L.marker([lat, lng], { draggable: true }).addTo(reportMap);
-    reportMap.setView([lat, lng], 16); 
+    reportMap.setView([lat, lng], 16);
 
     reportMarker.on('drag', function(event) {
         reportCircle.setLatLng(event.target.getLatLng());
@@ -58,7 +58,7 @@ async function setMapPin(lat, lng) {
         document.getElementById('form-lat').value = position.lat.toFixed(5);
         document.getElementById('form-lng').value = position.lng.toFixed(5);
         document.getElementById('address-display').innerHTML = "<span class='text-gray-500'>Recalculando logradouro...</span>";
-        
+
         const address = await fetchAddress(position.lat, position.lng);
         document.getElementById('address-display').textContent = address;
         document.getElementById('form-address').value = address;

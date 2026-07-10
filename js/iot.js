@@ -1,14 +1,14 @@
 let iotInterval = null;
-let sensor1Level = 45; 
-let sensor2Level = 12; 
+let sensor1Level = 45;
+let sensor2Level = 12;
 
 function startIoTSimulation() {
     if(iotInterval) clearInterval(iotInterval);
-    
+
     iotInterval = setInterval(() => {
-        sensor1Level += Math.floor(Math.random() * 15) - 3; 
-        sensor2Level += Math.floor(Math.random() * 10) - 2; 
-        
+        sensor1Level += Math.floor(Math.random() * 15) - 3;
+        sensor2Level += Math.floor(Math.random() * 10) - 2;
+
         if(sensor1Level < 10) sensor1Level = 10;
         if(sensor2Level < 0) sensor2Level = 0;
 
@@ -18,23 +18,23 @@ function startIoTSimulation() {
         updateSensorUI('o-iot-bar-2', 'o-iot-val-2', sensor2Level, false);
 
         if(sensor1Level > 95) {
-            sensor1Level = 30; 
-            
+            sensor1Level = 30;
+
             const alertaJaExiste = db.some(doc => doc.id.startsWith('IOT-ANA') && doc.status !== 'resolvido');
-            
+
             if (!alertaJaExiste) {
                 const msgAlerta = 'ALERTA AUTOMÁTICO: Sensor registrou nível hídrico acima da cota de segurança.';
-                
+
                 const autoDoc = {
                     id: `IOT-ANA-${Math.floor(Math.random() * 900) + 100}`,
                     cat: 'enchente',
                     desc: msgAlerta,
                     data: new Date().toLocaleDateString('pt-BR'),
-                    lat: -9.6580, lng: -35.7280, 
+                    lat: -9.6580, lng: -35.7280,
                     addr: 'Via Expressa, Riacho Salgadinho (Sensor IoT)',
                     status: 'novo'
                 };
-                
+
                 db.unshift(autoDoc);
                 saveDb();
                 autoAlertsLog.unshift({ hora: new Date().toLocaleTimeString('pt-BR'), msg: msgAlerta });
@@ -56,7 +56,7 @@ function startIoTSimulation() {
                 }
             }
         }
-    }, 4000); 
+    }, 4000);
 }
 
 function updateSensorUI(barId, valId, value, isPercentage) {
@@ -65,7 +65,7 @@ function updateSensorUI(barId, valId, value, isPercentage) {
     if(bar && val) {
         bar.style.width = `${value > 100 ? 100 : value}%`;
         val.textContent = isPercentage ? `${value}%` : `${value}mm/h`;
-        
+
         let colorClass = "bg-green-400";
         let textClass = "text-green-400";
         if(isPercentage) {

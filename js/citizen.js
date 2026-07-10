@@ -1,6 +1,6 @@
 function calculateSurroundings() {
     let countInRadius = 0;
-    const raioBuscaKm = 3; 
+    const raioBuscaKm = 3;
 
     db.forEach(doc => {
         if(doc.status !== 'resolvido') {
@@ -27,8 +27,8 @@ function calculateSurroundings() {
 }
 
 function renderCitizenDashboard() {
-    calculateSurroundings(); 
-    
+    calculateSurroundings();
+
     setTimeout(() => {
         if(!cDashMap) {
             cDashMap = L.map('c-main-map').setView([-9.64, -35.72], 12);
@@ -36,30 +36,30 @@ function renderCitizenDashboard() {
         }
         cDashMap.invalidateSize();
         cDashMap.eachLayer((l) => { if (l instanceof L.Marker || l instanceof L.Circle) cDashMap.removeLayer(l); });
-        
+
         const feedContainer = document.getElementById('c-feed-list');
         if (!feedContainer) return;
         feedContainer.innerHTML = '';
-        
+
         const template = document.getElementById('feed-item-template');
 
         db.forEach(doc => {
             const cat = CATEGORIAS_MAP[doc.cat];
             L.circle([doc.lat, doc.lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(cDashMap);
             L.marker([doc.lat, doc.lng]).addTo(cDashMap).bindPopup(`<b>${cat.nome}</b><br><span class="text-xs">${doc.addr}</span>`);
-            
+
             const clone = template.content.cloneNode(true);
             const card = clone.querySelector('div');
-            
+
             card.onclick = () => focusMap(doc.lat, doc.lng);
             clone.querySelector('i').className = `${cat.icon} text-gray-500`;
             clone.querySelector('.item-cat-name').textContent = cat.nome;
             clone.querySelector('.item-date').textContent = doc.data;
-            
+
             const addrParam = clone.querySelector('.item-addr');
             addrParam.textContent = doc.addr;
             addrParam.title = doc.addr;
-            
+
             const statusDiv = clone.querySelector('.item-status');
             statusDiv.className = `text-[10px] font-mono font-bold uppercase tracking-wider ${STATUS_MAP[doc.status].text}`;
             statusDiv.textContent = STATUS_MAP[doc.status].label;
@@ -85,28 +85,28 @@ function renderCitizenHistory() {
     const tbody = document.getElementById('c-historico-table');
     if (!tbody) return;
     tbody.innerHTML = '';
-    
+
     const template = document.getElementById('history-row-template');
-    
+
     db.forEach(doc => {
         const cat = CATEGORIAS_MAP[doc.cat];
         const stat = STATUS_MAP[doc.status];
-        
+
         const clone = template.content.cloneNode(true);
-        
+
         clone.querySelector('.row-id').textContent = doc.id;
         clone.querySelector('.row-date').textContent = doc.data;
         clone.querySelector('.row-cat').textContent = cat.nome;
-        
+
         const addrCell = clone.querySelector('.row-addr');
         addrCell.textContent = doc.addr;
         addrCell.title = doc.addr;
-        
+
         const containerStatus = clone.querySelector('.row-status-container');
         containerStatus.className = `flex items-center gap-1.5 text-[10px] font-bold uppercase ${stat.text}`;
         containerStatus.querySelector('.row-status-dot').className = `w-1.5 h-1.5 rounded-full ${stat.dot}`;
         clone.querySelector('.row-status-label').textContent = stat.label;
-        
+
         clone.querySelector('.btn-edit').onclick = () => openEditModal(doc.id);
         clone.querySelector('.btn-delete').onclick = () => deleteRecord(doc.id);
 
@@ -118,12 +118,12 @@ function renderCitizenAlertas() {
     const container = document.getElementById('c-alertas-lista');
     if(!container) return;
     container.innerHTML = '';
-    
+
     if(autoAlertsLog.length === 0) {
         container.innerHTML = `<div class="p-8 text-center bg-white border border-gray-200 rounded text-gray-400 text-sm">Nenhum alerta autônomo registrado na sua região hoje.</div>`;
         return;
     }
-    
+
     const template = document.getElementById('alert-card-template');
     autoAlertsLog.forEach(alerta => {
         const clone = template.content.cloneNode(true);

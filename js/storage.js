@@ -11,7 +11,7 @@ let db = rawDb.filter(item => {
 
 localStorage.setItem('cimadec_db_v13', JSON.stringify(db));
 
-let autoAlertsLog = []; 
+let autoAlertsLog = [];
 let currentUserRole = null;
 let currentCitizenLocation = { lat: -9.665, lng: -35.735 };
 
