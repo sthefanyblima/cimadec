@@ -1,0 +1,19 @@
+# PostgreSQL local para desenvolvimento do CIMADEC.
+# Suba com:  docker compose up -d
+# Derrube com: docker compose down   (use -v para apagar os dados)
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: cimadec-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cimadec
+      POSTGRES_PASSWORD: cimadec
+      POSTGRES_DB: cimadec
+    ports:
+      - "5432:5432"
+    volumes:
+      - cimadec_pgdata:/var/lib/postgresql/data
+
+volumes:
+  cimadec_pgdata:
