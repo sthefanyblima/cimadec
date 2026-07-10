@@ -1,7 +1,7 @@
 const CATEGORIAS_MAP = {
-    'enchente': { nome: 'Alagamento', icon: 'ph-waves', color: '#0B3B60' }, 
-    'deslizamento': { nome: 'Deslizamento', icon: 'ph-mountains', color: '#9B1B30' }, 
-    'lixo': { nome: 'Resíduos Irregulares', icon: 'ph-trash', color: '#6B7280' }, 
+    'enchente': { nome: 'Alagamento', icon: 'ph-waves', color: '#0B3B60' },
+    'deslizamento': { nome: 'Deslizamento', icon: 'ph-mountains', color: '#9B1B30' },
+    'lixo': { nome: 'Resíduos Irregulares', icon: 'ph-trash', color: '#6B7280' },
     'arvore': { nome: 'Queda de Árvore', icon: 'ph-tree', color: '#4B5563' }
 };
 
@@ -29,6 +29,6 @@ const menus = {
         { id: 'o-dashboard', icon: 'ph-chart-bar', label: 'Painel Analítico' },
         { id: 'o-mapa', icon: 'ph-globe-hemisphere-west', label: 'Mapa Operacional' },
         { id: 'o-triagem', icon: 'ph-kanban', label: 'Fila de Triagem' },
-        { id: 'o-relatorios', icon: 'ph-file-pdf', label: 'Exportar Relatórios', mock: true }
+        { id: 'o-relatorios', icon: 'ph-file-csv', label: 'Exportar Relatórios', mock: false }
     ]
 };

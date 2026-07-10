@@ -18,9 +18,9 @@ function renderOperatorDash() {
         const ctx = chartCanvas.getContext('2d');
         const counts = { enchente:0, deslizamento:0, lixo:0, arvore:0 };
         db.forEach(o => { if(counts[o.cat] !== undefined) counts[o.cat]++; });
-        
+
         if (chartInstance) chartInstance.destroy();
-        
+
         chartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -46,7 +46,7 @@ function renderOperatorMap() {
         }
         oMap.invalidateSize();
         oMap.eachLayer((l) => { if (l instanceof L.Marker || l instanceof L.Circle) oMap.removeLayer(l); });
-        
+
         db.forEach(o => {
             const cat = CATEGORIAS_MAP[o.cat];
             L.circle([o.lat, o.lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(oMap);
@@ -62,18 +62,18 @@ function renderOperatorTable() {
     const tbody = document.getElementById('table-triagem');
     if (!tbody) return;
     tbody.innerHTML = '';
-    
+
     const template = document.getElementById('triagem-row-template');
-    
+
     db.forEach((doc, index) => {
         const cat = CATEGORIAS_MAP[doc.cat];
         const clone = template.content.cloneNode(true);
-        
+
         clone.querySelector('.row-id').textContent = doc.id;
         clone.querySelector('.row-date').textContent = doc.data;
         clone.querySelector('.row-addr').textContent = doc.addr;
         clone.querySelector('.row-cat').textContent = cat.nome;
-        
+
         const select = clone.querySelector('.row-select');
         select.value = doc.status;
         select.onchange = (e) => updateStatus(index, e.target.value);
@@ -87,3 +87,44 @@ window.updateStatus = function(index, newStatus) {
     saveDb();
     if(currentUserRole === 'operador' && document.getElementById('view-o-dashboard').classList.contains('flex')) renderOperatorDash();
 }
+
+// Escapa um valor para uma célula CSV (aspas duplas quando há vírgula/aspas/quebra).
+function csvCell(value) {
+    const s = String(value ?? '');
+    return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+// Exporta as ocorrências atuais como CSV (download client-side).
+window.exportarRelatorioCSV = function() {
+    if (!db.length) {
+        showToast('Não há ocorrências para exportar.', 'warning');
+        return;
+    }
+
+    const headers = ['Protocolo', 'Categoria', 'Status', 'Data', 'Endereço', 'Latitude', 'Longitude', 'Descrição'];
+    const linhas = db.map(o => [
+        o.id,
+        CATEGORIAS_MAP[o.cat]?.nome || o.cat,
+        STATUS_MAP[o.status]?.label || o.status,
+        o.data,
+        o.addr,
+        o.lat,
+        o.lng,
+        o.desc
+    ]);
+
+    const csv = [headers, ...linhas].map(row => row.map(csvCell).join(',')).join('\r\n');
+    // '﻿' (BOM) faz o Excel reconhecer os acentos em UTF-8.
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cimadec-ocorrencias-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+    showToast(`Relatório exportado (${db.length} ocorrência(s)).`, 'success');
+};

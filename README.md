@@ -2,363 +2,155 @@
 
 ![Status](https://img.shields.io/badge/status-prot%C3%B3tipo-blue)
 ![Frontend](https://img.shields.io/badge/frontend-HTML%2FCSS%2FJS-orange)
-![License](https://img.shields.io/badge/license-Acad%C3%AAmico-green)
+![Backend](https://img.shields.io/badge/backend-Express%2FPrisma%2FPostgreSQL-green)
+![License](https://img.shields.io/badge/license-Acad%C3%AAmico-lightgrey)
 
-##  Sobre o Projeto
+## Sobre o Projeto
 
-O **CIMADEC (Centro Integrado de Monitoramento e Análise de Desastres e Crises)** é uma plataforma web desenvolvida para auxiliar o monitoramento e o gerenciamento de ocorrências urbanas na cidade de **Maceió – AL**.
+O **CIMADEC (Centro Integrado de Monitoramento e Análise de Desastres e Crises)** é uma plataforma web para monitoramento e gerenciamento de ocorrências urbanas na cidade de **Maceió – AL**.
 
-A proposta do sistema é funcionar como uma ponte entre a população e os órgãos responsáveis pela gestão urbana, permitindo o registro e acompanhamento de situações de risco que afetam diretamente a população.
-
-Entre as ocorrências monitoradas estão:
-
--  Enchentes
--  Deslizamentos de encostas
--  Acúmulo irregular de lixo
--  Queda de árvores
--  Problemas de infraestrutura urbana
-
-Além do registro das ocorrências, a plataforma disponibiliza um painel de monitoramento para visualização e análise dos dados coletados.
+A proposta é funcionar como uma ponte entre a população e os órgãos de gestão urbana, permitindo o registro e acompanhamento de situações de risco. Entre as ocorrências monitoradas: enchentes, deslizamentos de encostas, acúmulo irregular de lixo, queda de árvores e problemas de infraestrutura.
 
 ---
 
-#  Objetivos
+## Arquitetura
 
-## Objetivo Geral
-
-Desenvolver um protótipo funcional de uma plataforma web para monitoramento de crises urbanas, permitindo o registro, visualização e acompanhamento de ocorrências georreferenciadas.
-
-## Objetivos Específicos
-
-- Facilitar o reporte de problemas urbanos pela população;
-- Disponibilizar informações geográficas das ocorrências;
-- Permitir a visualização de indicadores em tempo real (simulados);
-- Aplicar conceitos de UX/UI e responsividade;
-- Demonstrar o uso de mapas interativos em aplicações web.
-
----
-
-#  Tecnologias Utilizadas
-
-| Tecnologia | Finalidade |
-|------------|------------|
-| HTML5 | Estrutura semântica da aplicação |
-| CSS3 | Estilização complementar |
-| Tailwind CSS | Layout responsivo e utilitário |
-| JavaScript ES6+ | Interatividade e lógica da aplicação |
-| Leaflet.js | Mapa interativo |
-| OpenStreetMap / CartoDB | Provedor dos mapas |
-| Chart.js | Visualização de dados |
-| Phosphor Icons | Ícones da interface |
-| localStorage | Persistência local dos dados |
-
----
-
-#  Arquitetura do Projeto
-
-O sistema segue uma arquitetura totalmente **Client-Side**, ou seja, toda a execução ocorre diretamente no navegador.
-
-### Características
-
- Sem back-end
-
- Sem banco de dados
-
- Sem autenticação real
-
- Compatível com GitHub Pages
-
- Persistência local utilizando localStorage
-
- Sem necessidade de instalação de dependências
-
----
-
-#  Estrutura do Projeto
+O projeto tem **duas partes**:
 
 ```text
 /
-├── index.html
-├── views/
-│   ├── landing.html
-│   ├── sidebar.html
-│   ├── c-dashboard.html
-│   └── (outros componentes visuais)
-├── css/
-│   ├── main.css
-│   └── (estilos particionados)
-└── js/
-    ├── main.js
-    ├── ui.js
-    ├── storage.js
-    └── (outros módulos lógicos)
+├── (raiz)        → Front-end estático (HTML, Tailwind, JavaScript)
+│   ├── index.html
+│   ├── css/      → estilos particionados
+│   ├── js/       → módulos da aplicação
+│   └── views/    → componentes de tela (carregados via fetch)
+│
+└── server/       → Back-end (API REST) — ver server/README.md
+    ├── src/      → Express (rotas, controllers, middlewares)
+    └── prisma/   → schema e migrations (PostgreSQL)
 ```
 
----
+- **Front-end:** SPA leve, sem framework. Componentes carregados dinamicamente e mapa interativo (Leaflet). Autenticação **consome a API própria** (`server/`).
+- **Back-end:** API REST em Express + PostgreSQL/Prisma, com cadastro/login (bcrypt) e **sessão em cookie httpOnly (JWT)**.
 
-#  Perfis de Usuário
-
-A aplicação foi dividida em dois fluxos principais:
-
-##  Cidadão
-
-Responsável pelo registro das ocorrências.
-
-### Funcionalidades
-
-- Cadastro de ocorrências;
-- Registro georreferenciado;
-- Upload simulado de evidências;
-- Histórico de protocolos;
-- Consulta do status da ocorrência.
-
-### Dados registrados
-
-- Categoria;
-- Descrição;
-- Endereço;
-- Coordenadas geográficas;
-- Data do registro.
+> **Estado atual da integração:** a **autenticação** (cadastro, login, sessão, rota privada) já é servida pela API. O **registro de ocorrências** ainda usa `localStorage` no front — a migração para a API é o próximo passo (Projeto Final). A API já expõe o CRUD de ocorrências pronto para essa integração.
 
 ---
 
-##  Operador / Defesa Civil
+## Tecnologias
 
-Responsável pelo monitoramento e análise das ocorrências registradas.
-
-### Funcionalidades
-
-- Dashboard analítico;
-- Visualização de indicadores;
-- Mapa de ocorrências;
-- Triagem de chamados;
-- Atualização de status.
-
-### Indicadores exibidos
-
-- Total de ocorrências;
-- Ocorrências em análise;
-- Casos resolvidos;
-- Casos críticos;
-- Distribuição por categoria.
-
----
-
-#  Georreferenciamento
-
-A plataforma utiliza:
-
-- **Leaflet.js**
-- **OpenStreetMap**
-- **CartoDB Voyager**
-
-para exibição dos mapas.
-
-### Recursos implementados
-
-- Visualização de Maceió em mapa interativo;
-- Captura de coordenadas através de clique no mapa;
-- Exibição de marcadores;
-- Associação da ocorrência à localização geográfica.
-
----
-
-#  Decisões de Design (UI/UX)
-
-## Interface
-
-Foi adotado o padrão **Flat Design Corporativo**, priorizando:
-
-- Legibilidade;
-- Simplicidade;
-- Clareza visual;
-- Organização das informações.
-
-## Paleta de Cores
-
-A identidade visual utiliza:
-
-- Tons neutros para fundo;
-- Azul institucional para ações principais;
-- Vermelho para alertas críticos;
-- Verde para indicadores positivos.
-
-## Responsividade
-
-O sistema foi projetado para funcionar em:
-
-| Dispositivo | Resolução |
+### Front-end
+| Tecnologia | Finalidade |
 |------------|------------|
-| Mobile | até 640px |
-| Tablet | 768px ou superior |
-| Desktop | 1024px ou superior |
+| HTML5 / CSS3 | Estrutura semântica e estilos |
+| Tailwind CSS | Layout responsivo e utilitário |
+| JavaScript ES6+ | Interatividade e lógica |
+| Leaflet.js + OpenStreetMap/CartoDB | Mapa interativo |
+| Chart.js | Visualização de dados |
+| Phosphor Icons | Ícones |
+
+### Back-end
+| Tecnologia | Finalidade |
+|------------|------------|
+| Node.js + Express | API REST (rotas e controllers) |
+| PostgreSQL + Prisma | Persistência e modelagem |
+| bcryptjs | Hash de senha |
+| JWT + cookie httpOnly | Sessão |
+| Zod | Validação de entrada |
 
 ---
 
-#  Funcionalidades Implementadas
+## Perfis de Usuário
 
-### Landing Page
+### Cidadão
+Registra ocorrências georreferenciadas, acompanha o histórico de protocolos e vê o status. Recebe um radar de entorno com ocorrências próximas.
 
-- Apresentação do projeto;
-- Introdução ao problema urbano;
-- Botões de navegação rápida.
+### Operador / Defesa Civil
+Monitora e analisa as ocorrências: dashboard analítico, mapa operacional, fila de triagem, atualização de status e exportação de relatórios (CSV).
 
-### Dashboard
-
-- Painel de monitoramento;
-- Exibição de estatísticas;
-- Filtro de ocorrências.
-
-### Formulário de Ocorrências
-
-- Validação dinâmica;
-- Campos obrigatórios;
-- Upload simulado;
-- Captura de coordenadas.
-
-### Mapa Interativo
-
-- Navegação livre;
-- Seleção de localização;
-- Marcadores dinâmicos.
-
-### Armazenamento Local
-
-Utilização do:
-
-```javascript
-localStorage
-```
-
-para manter os registros após recarregar a página.
+> Cadastro público cria sempre um **cidadão**. Contas de **operador** são criadas pela equipe (via seed / rota administrativa) — o back-end bloqueia o auto-registro como operador.
 
 ---
 
-#  Como Executar o Projeto
+## Como Executar
 
-## Método 1 — Abertura Direta
+O projeto precisa do **back-end rodando** para cadastro/login. Suba os dois:
 
-1. Clone o repositório:
+### 1. Back-end (API — porta 3000)
+
+Instruções completas em [`server/README.md`](server/README.md). Resumo:
 
 ```bash
-git clone https://github.com/seu-usuario/cimadec.git
+cd server
+npm install
+cp .env.example .env        # Windows: copy .env.example .env
+docker compose up -d        # sobe o PostgreSQL (precisa do Docker)
+npm run prisma:migrate      # cria as tabelas
+npm run seed                # (opcional) usuários de exemplo
+npm run dev                 # → http://localhost:3000
 ```
 
-2. Entre na pasta do projeto:
+Usuários do seed: `operador@cimadec.gov.br / 123456` e `cidadao@exemplo.com / 123456`.
+
+### 2. Front-end (site estático — porta 5500)
+
+O front usa `fetch` para carregar componentes, então **não pode** abrir via `file://` — use um servidor HTTP:
 
 ```bash
-cd cimadec
+# na raiz do projeto
+python -m http.server 5500          # → http://localhost:5500
 ```
 
-3. Abra o arquivo:
+Ou, no VS Code: botão direito no `index.html` → **Open with Live Server**.
 
-```text
-index.html
-```
+> **Importante:** o `CORS_ORIGIN` no `.env` do back precisa bater com a URL do front (padrão `http://localhost:5500`). Se rodar o front em outra porta, ajuste essa variável.
 
-em qualquer navegador moderno.
+### Portas
 
----
-
-## Método 2 — Live Server (Recomendado)
-
-Caso utilize o VS Code:
-
-1. Instale a extensão **Live Server**;
-2. Abra o projeto;
-3. Clique com o botão direito em:
-
-```text
-index.html
-```
-
-4. Selecione:
-
-```text
-Open with Live Server
-```
+| Serviço | Porta |
+|---|---|
+| API (back) | 3000 |
+| PostgreSQL | 5432 |
+| Front | 5500 |
 
 ---
 
-#  Persistência dos Dados
+## Funcionalidades
 
-Os dados são armazenados localmente através da API:
-
-```javascript
-localStorage
-```
-
-Isso permite que as ocorrências continuem disponíveis mesmo após:
-
-- Atualização da página;
-- Fechamento do navegador;
-- Reinício da aplicação.
+- **Autenticação real:** cadastro e login via API (senha com bcrypt), sessão em cookie httpOnly, persistência entre recarregamentos e logout.
+- **Landing page** responsiva com apresentação do problema e portal de acesso.
+- **Registro de ocorrências** com formulário validado, captura de coordenadas no mapa e reverse geocoding (Nominatim/OSM).
+- **Dashboards** de cidadão e operador com indicadores e gráfico (Chart.js).
+- **Mapa interativo** com marcadores das ocorrências.
+- **Fila de triagem** com atualização de status (operador).
+- **Exportação de relatórios** em CSV (operador).
+- **Feedback visual** por toasts e diálogos de confirmação.
 
 ---
 
-#  Limitações Conhecidas
+## Limitações Conhecidas
 
-Por se tratar de um protótipo acadêmico de front-end:
-
-- Não existe autenticação real;
-- Não há banco de dados;
-- Não existe API REST;
-- O upload de imagens é apenas simulado;
-- Não há integração com órgãos públicos;
-- Não existe envio real de notificações;
-- Os alertas climáticos são estáticos.
+- O **registro de ocorrências** ainda persiste em `localStorage` (a autenticação já é via API; a migração das ocorrências é o próximo passo).
+- Upload de imagens é simulado.
+- Sem integração com órgãos públicos (INMET, CEMADEN, OpenWeather).
+- Alertas de sensores (IoT) são simulados no front.
+- Sem deploy publicado ainda.
 
 ---
 
-#  Trabalhos Futuros
+## Trabalhos Futuros
 
-As próximas evoluções previstas incluem:
-
-### Infraestrutura
-
-- PostgreSQL + PostGIS;
-- API REST;
-- Hospedagem em nuvem.
-
-### Funcionalidades
-
-- Upload real de imagens;
-- Cadastro de usuários;
-- Sistema de autenticação;
-- Painel administrativo completo;
-- Notificações em tempo real.
-
-### Integrações
-
-- INMET;
-- CEMADEN;
-- OpenWeather;
-- APIs municipais.
+- Migrar o CRUD de ocorrências para a API (concluir a integração front/back).
+- Autorização por papéis mais granular.
+- Upload real de imagens.
+- Deploy (front no GitHub Pages, back no Cloud Run).
+- Integrações externas (INMET, CEMADEN, OpenWeather).
 
 ---
 
-#  Referências
+## Licença
 
-- HTML Living Standard
-- Tailwind CSS Documentation
-- Leaflet Documentation
-- OpenStreetMap
-- Chart.js Documentation
-- W3C Web Accessibility Guidelines (WCAG)
-
----
-
-#  Autores
-
-Projeto desenvolvido para fins acadêmicos na disciplina de Desenvolvimento Web, com foco em monitoramento de crises urbanas e participação cidadã.
-
----
-
-#  Licença
-
-Este projeto possui finalidade exclusivamente acadêmica e educacional.
-
-Uso livre para estudos, demonstrações e apresentações universitárias.
+Projeto com finalidade exclusivamente acadêmica e educacional. Uso livre para estudos e demonstrações.
 
 ---
 

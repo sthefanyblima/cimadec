@@ -11,12 +11,15 @@ async function loadIncludes() {
             console.error(`Erro ao carregar o componente: ${file}`, error);
         }
     });
-    
+
     await Promise.all(promises);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadIncludes();
     initForms();
+    initAuthForms();
     startIoTSimulation();
+    // Se já houver sessão válida (cookie), entra direto no app.
+    checkSession();
 });

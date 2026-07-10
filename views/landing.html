@@ -64,7 +64,7 @@
                 <h3 class="text-3xl font-bold text-brand-dark mb-4">Arquitetura de Funcionalidades</h3>
                 <p class="text-gray-600 text-sm">Módulos integrados projetados para eficiência operacional e prevenção.</p>
             </div>
-            
+
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded shadow-sm border border-gray-200 hover:border-brand-blue transition-colors">
                     <i class="ph ph-crosshair text-4xl text-brand-blue mb-4"></i>
@@ -86,32 +86,53 @@
     </section>
 
     <section id="acesso" class="py-20 bg-white">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-brand-dark mb-4">Portal de Acesso</h3>
-                <p class="text-gray-600 text-sm">Selecione o perfil de operação adequado.</p>
+        <div class="container mx-auto px-6 max-w-md">
+            <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-brand-dark mb-2">Portal de Acesso</h3>
+                <p class="text-gray-600 text-sm">Entre na sua conta ou cadastre-se como cidadão.</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                <button onclick="loginAs('cidadao')" class="text-left group flex flex-col items-center text-center gap-4 p-8 border border-gray-300 rounded hover:border-brand-blue hover:shadow-md bg-white transition-all">
-                    <div class="p-4 bg-gray-100 rounded-full group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                        <i class="ph ph-user text-3xl"></i>
+
+            <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+                <!-- Abas -->
+                <div class="flex border-b border-gray-200 mb-6">
+                    <button type="button" id="tab-login" onclick="switchAuthTab('login')" class="flex-1 pb-3 text-sm font-bold border-b-2 transition-colors text-brand-blue border-brand-blue">Entrar</button>
+                    <button type="button" id="tab-register" onclick="switchAuthTab('register')" class="flex-1 pb-3 text-sm font-bold border-b-2 transition-colors text-gray-400 border-transparent">Criar conta</button>
+                </div>
+
+                <!-- Login -->
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="login-email" class="block text-xs font-bold text-gray-600 mb-1">E-mail</label>
+                        <input id="login-email" type="email" required autocomplete="email" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none" placeholder="voce@exemplo.com">
                     </div>
                     <div>
-                        <h4 class="font-bold text-brand-dark mb-2">Acesso Cidadão</h4>
-                        <p class="text-xs text-gray-500">Radar de entorno automático, telemetria ambiental e reporte georreferenciado de incidentes locais.</p>
+                        <label for="login-senha" class="block text-xs font-bold text-gray-600 mb-1">Senha</label>
+                        <input id="login-senha" type="password" required autocomplete="current-password" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none" placeholder="••••••">
                     </div>
-                </button>
-                
-                <button onclick="loginAs('operador')" class="text-left group flex flex-col items-center text-center gap-4 p-8 border border-gray-300 rounded hover:border-brand-red hover:shadow-md bg-white transition-all">
-                    <div class="p-4 bg-gray-100 rounded-full group-hover:bg-brand-red group-hover:text-white transition-colors">
-                        <i class="ph ph-shield-check text-3xl"></i>
+                    <button type="submit" class="w-full bg-brand-blue text-white py-2.5 rounded text-sm font-bold hover:bg-blue-800 transition-colors">Entrar</button>
+                </form>
+
+                <!-- Cadastro -->
+                <form id="register-form" class="space-y-4 hidden">
+                    <div>
+                        <label for="reg-nome" class="block text-xs font-bold text-gray-600 mb-1">Nome</label>
+                        <input id="reg-nome" type="text" required autocomplete="name" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none" placeholder="Seu nome">
                     </div>
                     <div>
-                        <h4 class="font-bold text-brand-dark mb-2">Centro de Operações</h4>
-                        <p class="text-xs text-gray-500">Painel logístico de triagem, mapa de calor, integração de radar CEMADEN e gestão em massa.</p>
+                        <label for="reg-email" class="block text-xs font-bold text-gray-600 mb-1">E-mail</label>
+                        <input id="reg-email" type="email" required autocomplete="email" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none" placeholder="voce@exemplo.com">
                     </div>
-                </button>
+                    <div>
+                        <label for="reg-senha" class="block text-xs font-bold text-gray-600 mb-1">Senha</label>
+                        <input id="reg-senha" type="password" required minlength="6" autocomplete="new-password" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:border-brand-dark outline-none" placeholder="Mínimo 6 caracteres">
+                        <p class="text-[11px] text-gray-400 mt-1">Mínimo 6 caracteres.</p>
+                    </div>
+                    <button type="submit" class="w-full bg-brand-dark text-white py-2.5 rounded text-sm font-bold hover:bg-gray-800 transition-colors">Criar conta</button>
+                </form>
+
+                <p class="text-[11px] text-gray-400 text-center mt-5 leading-relaxed">
+                    Operadores da Defesa Civil acessam com a conta institucional fornecida.
+                </p>
             </div>
         </div>
     </section>
