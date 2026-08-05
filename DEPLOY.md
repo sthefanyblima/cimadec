@@ -31,7 +31,13 @@ gcloud config set project SEU_PROJECT_ID
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
 ```
 
+> **Project ID é único no mundo todo.** Se `gcloud init` falhar ao criar um projeto com
+> `409 ALREADY_EXISTS`, o ID já está em uso. Reaproveite um projeto existente
+> (`gcloud config set project SEU_PROJECT_ID`) ou crie um com ID único:
+> `gcloud projects create cimadec-app-2026 --name="CIMADEC"` (troque o sufixo se colidir).
+
 > Cloud Run exige billing ativo no projeto (há free tier, mas precisa de cartão cadastrado).
+> Confirme em https://console.cloud.google.com/billing que o projeto está vinculado a uma conta.
 
 ---
 
