@@ -2,7 +2,12 @@
 // `credentials: 'include'` é essencial: faz o navegador enviar/receber o
 // cookie de sessão (httpOnly) definido pelo back-end no login.
 
-const API_BASE = 'http://localhost:3000/api';
+// Em desenvolvimento usa a API local; publicado (GitHub Pages) usa o Cloud Run.
+// >>> Após o deploy, substitua a URL de produção pela do seu serviço no Cloud Run. <<<
+const rodandoLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+const API_BASE = rodandoLocal
+    ? 'http://localhost:3000/api'
+    : 'https://SEU-BACKEND.run.app/api';
 
 async function apiFetch(path, options = {}) {
     let response;

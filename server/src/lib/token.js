@@ -15,11 +15,12 @@ export function verifyToken(token) {
 
 // Opções do cookie de sessão.
 // - httpOnly: JS do navegador não lê o cookie (protege contra XSS roubar o token).
-// - sameSite lax: mitiga CSRF em navegação normal.
-// - secure só em produção (exige HTTPS); em dev fica false para funcionar em http://localhost.
+// - Produção (front e back em domínios diferentes → cross-site): "none" + secure,
+//   senão o navegador NÃO envia o cookie nas requisições cross-site.
+// - Desenvolvimento (http://localhost): "lax" + secure=false para funcionar sem HTTPS.
 export const cookieOptions = {
   httpOnly: true,
-  sameSite: "lax",
+  sameSite: env.isProd ? "none" : "lax",
   secure: env.isProd,
   maxAge: 24 * 60 * 60 * 1000, // 1 dia
   path: "/",
