@@ -86,7 +86,7 @@ A tela de acesso tem um botão **"Entrar como Operador (demo)"** para avaliaçã
 | Operador | `operador@cimadec.gov.br` | `123456` |
 | Cidadão | `cidadao@exemplo.com` | `123456` |
 
-> Para essas contas existirem no ambiente publicado, é preciso rodar o `seed` contra o banco de produção (ver [DEPLOY.md](DEPLOY.md)). O cidadão também pode simplesmente se cadastrar na tela.
+> Para essas contas existirem no ambiente publicado, é preciso rodar o `seed` (`npm run seed`) contra o banco de produção. O cidadão também pode simplesmente se cadastrar na tela.
 
 ---
 
