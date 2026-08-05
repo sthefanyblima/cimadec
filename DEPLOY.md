@@ -51,20 +51,30 @@ openssl rand -base64 48
 node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"
 ```
 
-Na pasta `server/`, faça o deploy a partir do código (o Cloud Build usa o `Dockerfile`):
+Na pasta `server/`, faça o deploy a partir do código (o Cloud Build usa o `Dockerfile`).
+
+**Windows (cmd.exe) — comando em UMA linha, tudo entre aspas:**
+
+```bat
+cd /d C:\caminho\para\cimadec\server
+gcloud run deploy cimadec-api --source . --region southamerica-east1 --allow-unauthenticated --set-env-vars "DATABASE_URL=postgresql://user:senha@host/db?sslmode=require,JWT_SECRET=SEU_SEGREDO,JWT_EXPIRES_IN=1d,NODE_ENV=production,CORS_ORIGIN=https://sthefanyblima.github.io"
+```
+
+**Linux/macOS (bash):**
 
 ```bash
 cd server
-
 gcloud run deploy cimadec-api \
   --source . \
   --region southamerica-east1 \
   --allow-unauthenticated \
-  --set-env-vars "^@^DATABASE_URL=postgresql://user:senha@host/db?sslmode=require@JWT_SECRET=SEU_SEGREDO@JWT_EXPIRES_IN=1d@NODE_ENV=production@CORS_ORIGIN=https://sthefanyblima.github.io"
+  --set-env-vars "DATABASE_URL=postgresql://user:senha@host/db?sslmode=require,JWT_SECRET=SEU_SEGREDO,JWT_EXPIRES_IN=1d,NODE_ENV=production,CORS_ORIGIN=https://sthefanyblima.github.io"
 ```
 
 Notas:
-- O `^@^` no início troca o separador das variáveis de `,` para `@` — evita quebrar a `DATABASE_URL`.
+- No **cmd.exe** não quebre em várias linhas nem use `\`; mantenha tudo entre aspas (protege o `&` da URL).
+- O formato simples separado por vírgula funciona porque nenhum valor contém vírgula. Se a sua
+  `DATABASE_URL` tiver vírgula, troque o separador: `--set-env-vars "^@^DATABASE_URL=...@JWT_SECRET=...@..."`.
 - `CORS_ORIGIN` é o **origin** do front (sem caminho e sem barra no fim).
 - Não defina `PORT` — o Cloud Run injeta automaticamente.
 - O `Dockerfile` roda `prisma migrate deploy` no start, então as tabelas são criadas no Neon no primeiro boot.
