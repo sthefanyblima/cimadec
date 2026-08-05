@@ -7,7 +7,7 @@
 const rodandoLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
 const API_BASE = rodandoLocal
     ? 'http://localhost:3000/api'
-    : 'https://SEU-BACKEND.run.app/api';
+    : 'https://cimadec-api-195166052251.southamerica-east1.run.app/api';
 
 async function apiFetch(path, options = {}) {
     let response;
