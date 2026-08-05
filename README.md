@@ -70,6 +70,17 @@ Monitora e analisa as ocorrências: dashboard analítico, mapa operacional, fila
 
 > Cadastro público cria sempre um **cidadão**. Contas de **operador** são criadas pela equipe (via seed / rota administrativa) — o back-end bloqueia o auto-registro como operador.
 
+### Acesso de demonstração
+
+A tela de acesso tem um botão **"Entrar como Operador (demo)"** para avaliação. Contas do seed:
+
+| Perfil | E-mail | Senha |
+|---|---|---|
+| Operador | `operador@cimadec.gov.br` | `123456` |
+| Cidadão | `cidadao@exemplo.com` | `123456` |
+
+> Para essas contas existirem no ambiente publicado, é preciso rodar o `seed` contra o banco de produção (ver [DEPLOY.md](DEPLOY.md)). O cidadão também pode simplesmente se cadastrar na tela.
+
 ---
 
 ## Como Executar

@@ -130,9 +130,16 @@
                     <button type="submit" class="w-full bg-brand-dark text-white py-2.5 rounded text-sm font-bold hover:bg-gray-800 transition-colors">Criar conta</button>
                 </form>
 
-                <p class="text-[11px] text-gray-400 text-center mt-5 leading-relaxed">
-                    Operadores da Defesa Civil acessam com a conta institucional fornecida.
-                </p>
+                <div class="mt-5 pt-4 border-t border-gray-100">
+                    <p class="text-[11px] font-bold text-gray-500 uppercase tracking-wide mb-2 text-center">Acesso de demonstração</p>
+                    <button type="button" onclick="loginDemoOperador()" class="w-full mb-3 border border-brand-red text-brand-red py-2 rounded text-sm font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-2">
+                        <i class="ph ph-shield-check"></i> Entrar como Operador (demo)
+                    </button>
+                    <p class="text-[11px] text-gray-400 text-center leading-relaxed">
+                        Operador: <span class="font-mono text-gray-500">operador@cimadec.gov.br</span> / <span class="font-mono text-gray-500">123456</span><br>
+                        Cidadão: cadastre-se acima, ou use <span class="font-mono text-gray-500">cidadao@exemplo.com</span> / <span class="font-mono text-gray-500">123456</span>
+                    </p>
+                </div>
             </div>
         </div>
     </section>

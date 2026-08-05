@@ -23,6 +23,15 @@ async function handleRegister(nome, email, senha) {
     showToast('Cadastro realizado! Bem-vindo(a) ao CIMADEC.', 'success');
 }
 
+// Login rápido com a conta de demonstração do operador (para avaliação/apresentação).
+async function loginDemoOperador() {
+    try {
+        await handleLogin('operador@cimadec.gov.br', '123456');
+    } catch (e) {
+        showToast(e.message || 'Conta de demonstração indisponível. Rode o seed no back-end.', 'error');
+    }
+}
+
 // Chamado no carregamento: se já houver sessão válida (cookie), entra direto no app.
 async function checkSession() {
     try {

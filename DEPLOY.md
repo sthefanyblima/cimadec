@@ -101,10 +101,11 @@ git push origin main
 
 ---
 
-## 6. Criar o usuário operador em produção (opcional, para demo)
+## 6. Criar o usuário operador em produção (OBRIGATÓRIO para a demo)
 
-O cadastro público cria só cidadãos. Para ter a conta de operador no banco de produção,
-rode o seed uma vez apontando para o Neon (a partir de `server/`):
+O cadastro público cria só cidadãos, e a tela de acesso tem o botão **"Entrar como Operador (demo)"**
+que usa a conta do seed. Para essa conta existir no banco de produção, rode o seed uma vez
+apontando para o Neon (a partir de `server/`):
 
 ```bash
 cd server
