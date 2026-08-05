@@ -26,13 +26,6 @@ function startIoTSimulation() {
             const msgAlerta = 'ALERTA AUTOMÁTICO: Sensor registrou nível hídrico acima da cota de segurança.';
             autoAlertsLog.unshift({ hora: new Date().toLocaleTimeString('pt-BR'), msg: msgAlerta });
 
-            const banner = document.getElementById('global-alert-banner');
-            const msg = document.getElementById('global-alert-msg');
-            if(banner && msg) {
-                msg.textContent = msgAlerta;
-                banner.classList.remove('hidden');
-            }
-
             if(currentUserRole === 'operador') {
                 const log = document.getElementById('iot-log');
                 if(log) { log.innerHTML += `<span class="text-red-400">> [ALERTA] Risco Inundação</span>`; log.scrollTop = log.scrollHeight; }

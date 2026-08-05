@@ -35,17 +35,6 @@
 
         <main class="flex-1 flex flex-col min-w-0 bg-gray-50 relative">
 
-            <div id="global-alert-banner" class="hidden absolute top-0 left-0 w-full z-[60] bg-brand-red text-white px-8 py-3 shadow-lg flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <i class="ph-fill ph-warning-octagon text-2xl animate-pulse"></i>
-                    <div>
-                        <p class="text-sm font-bold tracking-wide">ALERTA AUTOMATIZADO DE RISCO</p>
-                        <p id="global-alert-msg" class="text-xs text-red-200">Sensores detectaram anomalia crítica na sua região.</p>
-                    </div>
-                </div>
-                <button onclick="this.parentElement.classList.add('hidden')" class="text-white hover:text-red-200"><i class="ph ph-x"></i></button>
-            </div>
-
             <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-8 shrink-0">
                 <div class="flex items-center gap-3">
                     <button onclick="toggleSidebar()" class="md:hidden text-brand-dark hover:text-brand-blue transition-colors" aria-label="Abrir menu de navegação">
