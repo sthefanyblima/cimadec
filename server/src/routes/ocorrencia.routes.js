@@ -1,11 +1,14 @@
-// Rotas do fluxo principal (ocorrências). Todas privadas: exigem sessão.
+// Rotas do fluxo principal (ocorrências).
 import { Router } from "express";
-import { create, list, getById, update, remove } from "../controllers/ocorrencia.controller.js";
+import { create, list, getById, update, remove, listPublic } from "../controllers/ocorrencia.controller.js";
 import { requireAuth } from "../middlewares/auth.js";
 
 export const ocorrenciaRoutes = Router();
 
-// requireAuth aplicado a todas as rotas deste router.
+// Rota pública do mapa de incidentes — registrada ANTES do requireAuth.
+ocorrenciaRoutes.get("/mapa", listPublic);
+
+// A partir daqui, tudo exige sessão.
 ocorrenciaRoutes.use(requireAuth);
 
 ocorrenciaRoutes.post("/", create);

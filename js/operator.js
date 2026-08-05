@@ -1,10 +1,17 @@
 let chartInstance = null;
 
-function renderOperatorDash() {
-    document.getElementById('kpi-total').textContent = db.length;
-    document.getElementById('kpi-pendentes').textContent = db.filter(o => o.status === 'novo').length;
-    document.getElementById('kpi-criticos').textContent = db.filter(o => o.cat === 'enchente' || o.cat === 'deslizamento').length;
-    document.getElementById('kpi-resolvidos').textContent = db.filter(o => o.status === 'resolvido').length;
+async function renderOperatorDash() {
+    try {
+        await carregarOcorrencias();
+    } catch (e) {
+        showToast(e.message || 'Não foi possível carregar os dados.', 'error');
+        return;
+    }
+
+    document.getElementById('kpi-total').textContent = ocorrencias.length;
+    document.getElementById('kpi-pendentes').textContent = ocorrencias.filter(o => o.status === 'novo').length;
+    document.getElementById('kpi-criticos').textContent = ocorrencias.filter(o => o.status === 'critico').length;
+    document.getElementById('kpi-resolvidos').textContent = ocorrencias.filter(o => o.status === 'resolvido').length;
 
     const tentarDesenharGrafico = () => {
         const chartCanvas = document.getElementById('categoryChart');
@@ -16,18 +23,18 @@ function renderOperatorDash() {
         }
 
         const ctx = chartCanvas.getContext('2d');
-        const counts = { enchente:0, deslizamento:0, lixo:0, arvore:0 };
-        db.forEach(o => { if(counts[o.cat] !== undefined) counts[o.cat]++; });
+        const counts = { enchente: 0, deslizamento: 0, lixo: 0, arvore: 0, infraestrutura: 0, outro: 0 };
+        ocorrencias.forEach(o => { if (counts[o.cat] !== undefined) counts[o.cat]++; });
 
         if (chartInstance) chartInstance.destroy();
 
         chartInstance = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Alagamento', 'Deslizamento', 'Resíduos', 'Árvore'],
+                labels: ['Alagamento', 'Deslizamento', 'Resíduos', 'Árvore', 'Infraestrutura', 'Outro'],
                 datasets: [{
-                    data: [counts.enchente, counts.deslizamento, counts.lixo, counts.arvore],
-                    backgroundColor: ['#0B3B60', '#374151', '#9CA3AF', '#D1D5DB'],
+                    data: [counts.enchente, counts.deslizamento, counts.lixo, counts.arvore, counts.infraestrutura, counts.outro],
+                    backgroundColor: ['#0B3B60', '#374151', '#9CA3AF', '#4B5563', '#B45309', '#D1D5DB'],
                     borderWidth: 0, borderRadius: 2
                 }]
             },
@@ -38,54 +45,80 @@ function renderOperatorDash() {
     tentarDesenharGrafico();
 }
 
-function renderOperatorMap() {
+async function renderOperatorMap() {
+    try {
+        await carregarOcorrencias();
+    } catch (e) {
+        showToast(e.message || 'Não foi possível carregar o mapa.', 'error');
+    }
+
     setTimeout(() => {
-        if(!oMap) {
+        if (!oMap) {
             oMap = L.map('o-main-map').setView([-9.64, -35.73], 13);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(oMap);
         }
         oMap.invalidateSize();
         oMap.eachLayer((l) => { if (l instanceof L.Marker || l instanceof L.Circle) oMap.removeLayer(l); });
 
-        db.forEach(o => {
+        ocorrencias.forEach(o => {
             const cat = CATEGORIAS_MAP[o.cat];
             L.circle([o.lat, o.lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(oMap);
-            L.marker([o.lat, o.lng]).addTo(oMap).bindPopup(`<b>${o.id}</b><br><span class="text-xs">${cat.nome}</span>`);
+            L.marker([o.lat, o.lng]).addTo(oMap).bindPopup(`<b>${o.id.slice(0, 8)}</b><br><span class="text-xs">${cat.nome}</span>`);
         });
 
         const isRadarOn = document.getElementById('toggle-radar') && document.getElementById('toggle-radar').checked;
-        if(isRadarOn) window.toggleRadar(true);
+        if (isRadarOn) window.toggleRadar(true);
     }, 100);
 }
 
-function renderOperatorTable() {
+async function renderOperatorTable() {
     const tbody = document.getElementById('table-triagem');
     if (!tbody) return;
+
+    tbody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-gray-400 text-sm">Carregando...</td></tr>';
+    try {
+        await carregarOcorrencias();
+    } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-red-500 text-sm">Não foi possível carregar a fila.</td></tr>';
+        showToast(e.message || 'Erro ao carregar a fila de triagem.', 'error');
+        return;
+    }
+
     tbody.innerHTML = '';
+    if (!ocorrencias.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-gray-400 text-sm">Nenhuma ocorrência na fila.</td></tr>';
+        return;
+    }
 
     const template = document.getElementById('triagem-row-template');
 
-    db.forEach((doc, index) => {
+    ocorrencias.forEach(doc => {
         const cat = CATEGORIAS_MAP[doc.cat];
         const clone = template.content.cloneNode(true);
 
-        clone.querySelector('.row-id').textContent = doc.id;
+        clone.querySelector('.row-id').textContent = doc.id.slice(0, 8);
         clone.querySelector('.row-date').textContent = doc.data;
         clone.querySelector('.row-addr').textContent = doc.addr;
         clone.querySelector('.row-cat').textContent = cat.nome;
 
         const select = clone.querySelector('.row-select');
         select.value = doc.status;
-        select.onchange = (e) => updateStatus(index, e.target.value);
+        select.onchange = (e) => updateStatus(doc.id, e.target.value);
 
         tbody.appendChild(clone);
     });
 }
 
-window.updateStatus = function(index, newStatus) {
-    db[index].status = newStatus;
-    saveDb();
-    if(currentUserRole === 'operador' && document.getElementById('view-o-dashboard').classList.contains('flex')) renderOperatorDash();
+window.updateStatus = async function(id, newStatus) {
+    try {
+        await atualizarOcorrencia(id, { status: newStatus });
+        showToast('Status atualizado.', 'success');
+    } catch (e) {
+        showToast(e.message || 'Não foi possível atualizar o status.', 'error');
+        renderOperatorTable();
+        return;
+    }
+    if (document.getElementById('view-o-dashboard').classList.contains('flex')) renderOperatorDash();
 }
 
 // Escapa um valor para uma célula CSV (aspas duplas quando há vírgula/aspas/quebra).
@@ -94,15 +127,15 @@ function csvCell(value) {
     return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
 }
 
-// Exporta as ocorrências atuais como CSV (download client-side).
+// Exporta as ocorrências carregadas como CSV (download client-side).
 window.exportarRelatorioCSV = function() {
-    if (!db.length) {
+    if (!ocorrencias.length) {
         showToast('Não há ocorrências para exportar.', 'warning');
         return;
     }
 
     const headers = ['Protocolo', 'Categoria', 'Status', 'Data', 'Endereço', 'Latitude', 'Longitude', 'Descrição'];
-    const linhas = db.map(o => [
+    const linhas = ocorrencias.map(o => [
         o.id,
         CATEGORIAS_MAP[o.cat]?.nome || o.cat,
         STATUS_MAP[o.status]?.label || o.status,
@@ -126,5 +159,5 @@ window.exportarRelatorioCSV = function() {
     a.remove();
     URL.revokeObjectURL(url);
 
-    showToast(`Relatório exportado (${db.length} ocorrência(s)).`, 'success');
+    showToast(`Relatório exportado (${ocorrencias.length} ocorrência(s)).`, 'success');
 };

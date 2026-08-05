@@ -1,6 +1,7 @@
 let iotInterval = null;
 let sensor1Level = 45;
 let sensor2Level = 12;
+let alertaHidricoAtivo = false;
 
 function startIoTSimulation() {
     if(iotInterval) clearInterval(iotInterval);
@@ -17,44 +18,30 @@ function startIoTSimulation() {
         updateSensorUI('o-iot-bar-1', 'o-iot-val-1', sensor1Level, true);
         updateSensorUI('o-iot-bar-2', 'o-iot-val-2', sensor2Level, false);
 
-        if(sensor1Level > 95) {
+        // Anomalia hídrica: alerta visual (simulação de telemetria), sem gravar ocorrência.
+        if(sensor1Level > 95 && !alertaHidricoAtivo) {
+            alertaHidricoAtivo = true;
             sensor1Level = 30;
 
-            const alertaJaExiste = db.some(doc => doc.id.startsWith('IOT-ANA') && doc.status !== 'resolvido');
+            const msgAlerta = 'ALERTA AUTOMÁTICO: Sensor registrou nível hídrico acima da cota de segurança.';
+            autoAlertsLog.unshift({ hora: new Date().toLocaleTimeString('pt-BR'), msg: msgAlerta });
 
-            if (!alertaJaExiste) {
-                const msgAlerta = 'ALERTA AUTOMÁTICO: Sensor registrou nível hídrico acima da cota de segurança.';
-
-                const autoDoc = {
-                    id: `IOT-ANA-${Math.floor(Math.random() * 900) + 100}`,
-                    cat: 'enchente',
-                    desc: msgAlerta,
-                    data: new Date().toLocaleDateString('pt-BR'),
-                    lat: -9.6580, lng: -35.7280,
-                    addr: 'Via Expressa, Riacho Salgadinho (Sensor IoT)',
-                    status: 'novo'
-                };
-
-                db.unshift(autoDoc);
-                saveDb();
-                autoAlertsLog.unshift({ hora: new Date().toLocaleTimeString('pt-BR'), msg: msgAlerta });
-
-                const banner = document.getElementById('global-alert-banner');
-                const msg = document.getElementById('global-alert-msg');
-                if(banner && msg) {
-                    msg.textContent = autoDoc.desc;
-                    banner.classList.remove('hidden');
-                }
-
-                if(currentUserRole === 'operador') {
-                    const log = document.getElementById('iot-log');
-                    if(log) { log.innerHTML += `<span class="text-red-400">> [ALERTA] Risco Inundação</span>`; log.scrollTop = log.scrollHeight; }
-                    if(!document.getElementById('view-o-dashboard').classList.contains('hidden')) renderOperatorDash();
-                } else if (currentUserRole === 'cidadao') {
-                    if(!document.getElementById('view-c-dashboard').classList.contains('hidden')) renderCitizenDashboard();
-                    if(!document.getElementById('view-c-alertas').classList.contains('hidden')) renderCitizenAlertas();
-                }
+            const banner = document.getElementById('global-alert-banner');
+            const msg = document.getElementById('global-alert-msg');
+            if(banner && msg) {
+                msg.textContent = msgAlerta;
+                banner.classList.remove('hidden');
             }
+
+            if(currentUserRole === 'operador') {
+                const log = document.getElementById('iot-log');
+                if(log) { log.innerHTML += `<span class="text-red-400">> [ALERTA] Risco Inundação</span>`; log.scrollTop = log.scrollHeight; }
+            } else if (currentUserRole === 'cidadao') {
+                if(!document.getElementById('view-c-alertas').classList.contains('hidden')) renderCitizenAlertas();
+            }
+
+            // Libera novo alerta depois de um tempo (evita spam do banner).
+            setTimeout(() => { alertaHidricoAtivo = false; }, 30000);
         }
     }, 4000);
 }

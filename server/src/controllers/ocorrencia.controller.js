@@ -22,6 +22,26 @@ async function findAuthorized(id, user) {
 // Seleção padrão do autor incluída nas respostas (evita vazar senhaHash).
 const autorSelect = { autor: { select: { id: true, nome: true, email: true } } };
 
+// GET /api/ocorrencias/mapa  (PÚBLICO)
+// Alimenta o mapa de incidentes e o "radar de entorno" do cidadão.
+// Não expõe autor nem a descrição (texto livre, pode conter dado pessoal) —
+// só o necessário para localizar e classificar a ocorrência no mapa.
+export const listPublic = asyncHandler(async (_req, res) => {
+  const ocorrencias = await prisma.ocorrencia.findMany({
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      categoria: true,
+      endereco: true,
+      latitude: true,
+      longitude: true,
+      status: true,
+      createdAt: true,
+    },
+  });
+  res.json({ total: ocorrencias.length, ocorrencias });
+});
+
 // POST /api/ocorrencias
 export const create = asyncHandler(async (req, res) => {
   const data = createOcorrenciaSchema.parse(req.body);

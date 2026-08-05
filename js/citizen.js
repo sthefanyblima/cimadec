@@ -2,18 +2,18 @@ function calculateSurroundings() {
     let countInRadius = 0;
     const raioBuscaKm = 3;
 
-    db.forEach(doc => {
-        if(doc.status !== 'resolvido') {
+    ocorrenciasMapa.forEach(doc => {
+        if (doc.status !== 'resolvido') {
             const dist = getDistanceFromLatLonInKm(currentCitizenLocation.lat, currentCitizenLocation.lng, doc.lat, doc.lng);
-            if(dist <= raioBuscaKm) countInRadius++;
+            if (dist <= raioBuscaKm) countInRadius++;
         }
     });
 
     const banner = document.getElementById('c-entorno-banner');
     const msg = document.getElementById('c-entorno-msg');
-    if(!banner || !msg) return;
+    if (!banner || !msg) return;
 
-    if(countInRadius > 0) {
+    if (countInRadius > 0) {
         banner.className = "bg-brand-red text-white p-5 rounded shadow-sm flex items-center gap-4 border border-red-800";
         banner.querySelector('div').className = "p-3 bg-red-900 rounded-full";
         banner.querySelector('h4').textContent = "Alerta de Entorno";
@@ -26,11 +26,16 @@ function calculateSurroundings() {
     }
 }
 
-function renderCitizenDashboard() {
+async function renderCitizenDashboard() {
+    try {
+        await carregarOcorrenciasMapa();
+    } catch (e) {
+        showToast(e.message || 'Não foi possível carregar o mapa de ocorrências.', 'error');
+    }
     calculateSurroundings();
 
     setTimeout(() => {
-        if(!cDashMap) {
+        if (!cDashMap) {
             cDashMap = L.map('c-main-map').setView([-9.64, -35.72], 12);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(cDashMap);
         }
@@ -41,9 +46,14 @@ function renderCitizenDashboard() {
         if (!feedContainer) return;
         feedContainer.innerHTML = '';
 
+        if (!ocorrenciasMapa.length) {
+            feedContainer.innerHTML = '<div class="p-6 text-center text-gray-400 text-sm">Nenhuma ocorrência registrada ainda.</div>';
+            return;
+        }
+
         const template = document.getElementById('feed-item-template');
 
-        db.forEach(doc => {
+        ocorrenciasMapa.forEach(doc => {
             const cat = CATEGORIAS_MAP[doc.cat];
             L.circle([doc.lat, doc.lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(cDashMap);
             L.marker([doc.lat, doc.lng]).addTo(cDashMap).bindPopup(`<b>${cat.nome}</b><br><span class="text-xs">${doc.addr}</span>`);
@@ -70,31 +80,45 @@ function renderCitizenDashboard() {
 }
 
 window.focusMap = function(lat, lng) {
-    if(cDashMap) {
+    if (cDashMap) {
         cDashMap.flyTo([lat, lng], 16, { duration: 1 });
         cDashMap.eachLayer((layer) => {
             if (layer instanceof L.Marker) {
                 const pos = layer.getLatLng();
-                if(pos.lat === lat && pos.lng === lng) layer.openPopup();
+                if (pos.lat === lat && pos.lng === lng) layer.openPopup();
             }
         });
     }
 }
 
-function renderCitizenHistory() {
+async function renderCitizenHistory() {
     const tbody = document.getElementById('c-historico-table');
     if (!tbody) return;
+
+    tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-gray-400 text-sm">Carregando...</td></tr>';
+    try {
+        await carregarOcorrencias();
+    } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-red-500 text-sm">Não foi possível carregar seu histórico.</td></tr>';
+        showToast(e.message || 'Erro ao carregar histórico.', 'error');
+        return;
+    }
+
     tbody.innerHTML = '';
+    if (!ocorrencias.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-gray-400 text-sm">Você ainda não registrou ocorrências.</td></tr>';
+        return;
+    }
 
     const template = document.getElementById('history-row-template');
 
-    db.forEach(doc => {
+    ocorrencias.forEach(doc => {
         const cat = CATEGORIAS_MAP[doc.cat];
         const stat = STATUS_MAP[doc.status];
 
         const clone = template.content.cloneNode(true);
 
-        clone.querySelector('.row-id').textContent = doc.id;
+        clone.querySelector('.row-id').textContent = doc.id.slice(0, 8);
         clone.querySelector('.row-date').textContent = doc.data;
         clone.querySelector('.row-cat').textContent = cat.nome;
 
@@ -116,10 +140,10 @@ function renderCitizenHistory() {
 
 function renderCitizenAlertas() {
     const container = document.getElementById('c-alertas-lista');
-    if(!container) return;
+    if (!container) return;
     container.innerHTML = '';
 
-    if(autoAlertsLog.length === 0) {
+    if (autoAlertsLog.length === 0) {
         container.innerHTML = `<div class="p-8 text-center bg-white border border-gray-200 rounded text-gray-400 text-sm">Nenhum alerta autônomo registrado na sua região hoje.</div>`;
         return;
     }
