@@ -56,7 +56,7 @@ async function renderCitizenDashboard() {
         ocorrenciasMapa.forEach(doc => {
             const cat = CATEGORIAS_MAP[doc.cat];
             L.circle([doc.lat, doc.lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(cDashMap);
-            L.marker([doc.lat, doc.lng]).addTo(cDashMap).bindPopup(`<b>${cat.nome}</b><br><span class="text-xs">${doc.addr}</span>`);
+            L.marker([doc.lat, doc.lng]).addTo(cDashMap).bindPopup(`<b>${escapeHtml(cat.nome)}</b><br><span class="text-xs">${escapeHtml(doc.addr)}</span>`);
 
             const clone = template.content.cloneNode(true);
             const card = clone.querySelector('div');

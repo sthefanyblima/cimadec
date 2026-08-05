@@ -63,7 +63,7 @@ async function renderOperatorMap() {
         ocorrencias.forEach(o => {
             const cat = CATEGORIAS_MAP[o.cat];
             L.circle([o.lat, o.lng], { radius: 150, color: '#9B1B30', fillColor: '#9B1B30', fillOpacity: 0.2, weight: 1 }).addTo(oMap);
-            L.marker([o.lat, o.lng]).addTo(oMap).bindPopup(`<b>${o.id.slice(0, 8)}</b><br><span class="text-xs">${cat.nome}</span>`);
+            L.marker([o.lat, o.lng]).addTo(oMap).bindPopup(`<b>${escapeHtml(o.id.slice(0, 8))}</b><br><span class="text-xs">${escapeHtml(cat.nome)}</span>`);
         });
 
         const isRadarOn = document.getElementById('toggle-radar') && document.getElementById('toggle-radar').checked;

@@ -1,6 +1,13 @@
 // Feedback visual da aplicação: toasts e diálogo de confirmação.
 // Substitui os alert()/confirm() nativos por uma UI consistente com o resto do sistema.
 
+// Escapa texto para inserção segura em HTML (previne XSS quando o dado vem do usuário/API).
+function escapeHtml(valor) {
+    return String(valor ?? '').replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
+}
+
 function getToastContainer() {
     let container = document.getElementById('toast-container');
     if (!container) {

@@ -19,6 +19,11 @@ export function errorHandler(err, _req, res, _next) {
     return res.status(400).json({ error: "JSON inválido no corpo da requisição." });
   }
 
+  // Corpo maior que o limite configurado (body-parser) -> 413.
+  if (err.type === "entity.too.large") {
+    return res.status(413).json({ error: "Requisição muito grande." });
+  }
+
   // Erro de validação de entrada (Zod).
   if (err instanceof ZodError) {
     return res.status(400).json({
