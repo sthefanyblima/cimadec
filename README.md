@@ -5,6 +5,13 @@
 ![Backend](https://img.shields.io/badge/backend-Express%2FPrisma%2FPostgreSQL-green)
 ![License](https://img.shields.io/badge/license-Acad%C3%AAmico-lightgrey)
 
+## Links publicados
+
+- **Aplicação (front):** https://sthefanyblima.github.io/cimadec/
+- **API (back):** https://cimadec-api-195166052251.southamerica-east1.run.app/api/health
+
+> Acesso rápido: na tela de login há o botão **"Entrar como Operador (demo)"**. Cidadão: cadastre-se ou use `cidadao@exemplo.com / 123456`.
+
 ## Sobre o Projeto
 
 O **CIMADEC (Centro Integrado de Monitoramento e Análise de Desastres e Crises)** é uma plataforma web para monitoramento e gerenciamento de ocorrências urbanas na cidade de **Maceió – AL**.
