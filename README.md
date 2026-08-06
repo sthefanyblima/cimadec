@@ -146,22 +146,31 @@ Ou, no VS Code: botão direito no `index.html` → **Open with Live Server**.
 
 ---
 
+## Segurança
+
+- **Senhas** com hash `bcrypt`; nunca retornadas nas respostas.
+- **Sessão** via JWT em cookie `httpOnly` + `Secure` + `SameSite=None` (produção), com algoritmo fixo (`HS256`).
+- **Validação** de todas as entradas com `zod`; chaves desconhecidas são descartadas (sem mass-assignment).
+- **Autorização**: cadastro público cria só `CIDADAO`; só operador altera status; acesso a ocorrências restrito a dono/operador.
+- **Cabeçalhos de segurança** com `helmet`; **CORS** travado na origem do front (com credenciais).
+- **Rate limiting** em `/auth/login` e `/auth/register` (anti brute-force) e **limite de corpo** de 16 KB.
+- **Prisma** parametriza todas as queries (sem SQL injection); dados do usuário são escapados ao renderizar (sem XSS).
+
 ## Limitações Conhecidas
 
-- O **registro de ocorrências** ainda persiste em `localStorage` (a autenticação já é via API; a migração das ocorrências é o próximo passo).
+- **Acesso de operador por conta de demonstração** com senha pública (botão na tela de login): conveniente para avaliação, mas em produção real operadores seriam provisionados por um admin com senha forte. As respostas não expõem dados pessoais do autor.
 - Upload de imagens é simulado.
-- Sem integração com órgãos públicos (INMET, CEMADEN, OpenWeather).
 - Alertas de sensores (IoT) são simulados no front.
-- Sem deploy publicado ainda.
+- Sessão cross-site depende de cookie de terceiros (funciona hoje; o ideal futuro é front e back no mesmo domínio).
+- Sem integração com órgãos públicos (INMET, CEMADEN, OpenWeather).
 
 ---
 
 ## Trabalhos Futuros
 
-- Migrar o CRUD de ocorrências para a API (concluir a integração front/back).
+- Provisionamento de operadores por um painel administrativo (remover a conta de demonstração).
 - Autorização por papéis mais granular.
 - Upload real de imagens.
-- Deploy (front no GitHub Pages, back no Cloud Run).
 - Integrações externas (INMET, CEMADEN, OpenWeather).
 
 ---
