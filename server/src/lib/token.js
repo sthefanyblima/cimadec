@@ -6,11 +6,12 @@ import { env } from "../config/env.js";
 export const SESSION_COOKIE = "cimadec_token";
 
 export function signToken(payload) {
-  return jwt.sign(payload, env.jwtSecret, { expiresIn: env.jwtExpiresIn });
+  return jwt.sign(payload, env.jwtSecret, { expiresIn: env.jwtExpiresIn, algorithm: "HS256" });
 }
 
 export function verifyToken(token) {
-  return jwt.verify(token, env.jwtSecret);
+  // Fixa o algoritmo aceito (evita ataques de confusão de algoritmo).
+  return jwt.verify(token, env.jwtSecret, { algorithms: ["HS256"] });
 }
 
 // Opções do cookie de sessão.

@@ -19,9 +19,6 @@ async function findAuthorized(id, user) {
   return ocorrencia;
 }
 
-// Seleção padrão do autor incluída nas respostas (evita vazar senhaHash).
-const autorSelect = { autor: { select: { id: true, nome: true, email: true } } };
-
 // GET /api/ocorrencias/mapa  (PÚBLICO)
 // Alimenta o mapa de incidentes e o "radar de entorno" do cidadão.
 // Não expõe autor nem a descrição (texto livre, pode conter dado pessoal) —
@@ -47,7 +44,6 @@ export const create = asyncHandler(async (req, res) => {
   const data = createOcorrenciaSchema.parse(req.body);
   const ocorrencia = await prisma.ocorrencia.create({
     data: { ...data, autorId: req.user.id },
-    include: autorSelect,
   });
   res.status(201).json({ ocorrencia });
 });
@@ -59,7 +55,6 @@ export const list = asyncHandler(async (req, res) => {
   const ocorrencias = await prisma.ocorrencia.findMany({
     where,
     orderBy: { createdAt: "desc" },
-    include: autorSelect,
   });
   res.json({ total: ocorrencias.length, ocorrencias });
 });
@@ -69,7 +64,6 @@ export const getById = asyncHandler(async (req, res) => {
   await findAuthorized(req.params.id, req.user);
   const ocorrencia = await prisma.ocorrencia.findUnique({
     where: { id: req.params.id },
-    include: autorSelect,
   });
   res.json({ ocorrencia });
 });
@@ -88,7 +82,6 @@ export const update = asyncHandler(async (req, res) => {
   const ocorrencia = await prisma.ocorrencia.update({
     where: { id: req.params.id },
     data,
-    include: autorSelect,
   });
   res.json({ ocorrencia });
 });
